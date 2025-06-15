@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>animate-it.css Demo</title>
+    <link rel="stylesheet" href="animate-it.css">
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #f8f9fa;
+            color: #222;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .demo-card {
+            background: #fff;
+            border-radius: 1rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+            padding: 2rem 1rem;
+            text-align: center;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .demo-label {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: #888;
+        }
+
+        .demo-btn {
+            margin-top: 1.5rem;
+            padding: 0.5rem 1.5rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            background: #0073e6;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .demo-btn:hover {
+            background: #005bb5;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>animate-it.css Demo</h1>
+    <p style="text-align:center;max-width:600px;margin:0 auto 2rem;">A showcase of modern, accessible CSS animation
+        utilities. Click the button below each card to replay the animation.</p>
+    <div class="demo-grid">
+        <div class="demo-card">
+            <div class="animated bounce demo-anim">Bounce</div>
+            <div class="demo-label">.bounce</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated flash demo-anim">Flash</div>
+            <div class="demo-label">.flash</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated shake demo-anim">Shake</div>
+            <div class="demo-label">.shake</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeIn demo-anim">Fade In</div>
+            <div class="demo-label">.fadeIn</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeOut demo-anim">Fade Out</div>
+            <div class="demo-label">.fadeOut</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated zoomIn demo-anim">Zoom In</div>
+            <div class="demo-label">.zoomIn</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated zoomOut demo-anim">Zoom Out</div>
+            <div class="demo-label">.zoomOut</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated swing demo-anim">Swing</div>
+            <div class="demo-label">.swing</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated pulse demo-anim">Pulse</div>
+            <div class="demo-label">.pulse</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated rubberBand demo-anim">RubberBand</div>
+            <div class="demo-label">.rubberBand</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated jello demo-anim">Jello</div>
+            <div class="demo-label">.jello</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated rollIn demo-anim">Roll In</div>
+            <div class="demo-label">.rollIn</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated rollOut demo-anim">Roll Out</div>
+            <div class="demo-label">.rollOut</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated tada demo-anim">Ta Da</div>
+            <div class="demo-label">.tada</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated wobble demo-anim">Wobble</div>
+            <div class="demo-label">.wobblet</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated flip demo-anim">Flip</div>
+            <div class="demo-label">.flip</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated flipInX demo-anim">FlipInX</div>
+            <div class="demo-label">.flipInX</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated flipOutX demo-anim">FlipOutX</div>
+            <div class="demo-label">.flipOutX</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated lightSpeedIn demo-anim">LightSpeedIn</div>
+            <div class="demo-label">.lightSpeedIn</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated lightSpeedOut demo-anim">LightSpeedOut</div>
+            <div class="demo-label">.lightSpeedOut</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated bounceIn demo-anim">BounceIn</div>
+            <div class="demo-label">.bounceIn</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated bounceOut demo-anim">BounceOut</div>
+            <div class="demo-label">.bounceOut</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeInUp demo-anim">FadeInUp</div>
+            <div class="demo-label">.fadeInUp</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeInDown demo-anim">FadeInDown</div>
+            <div class="demo-label">.fadeInDown</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeInLeft demo-anim">FadeInLeft</div>
+            <div class="demo-label">.fadeInLeft</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeInRight demo-anim">FadeInRight</div>
+            <div class="demo-label">.fadeInRight</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeOutUp demo-anim">FadeOutUp</div>
+            <div class="demo-label">.fadeOutUp</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeOutDown demo-anim">FadeOutDown</div>
+            <div class="demo-label">.fadeOutDown</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeOutLeft demo-anim">FadeOutLeft</div>
+            <div class="demo-label">.fadeOutLeft</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeOutRight demo-anim">FadeOutRight</div>
+            <div class="demo-label">.fadeOutRight</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeInUpBig demo-anim">FadeInUpBig</div>
+            <div class="demo-label">.fadeInUpBig</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated fadeInDownBig demo-anim">FadeInDownBig</div>
+            <div class="demo-label">.fadeInDownBig</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated rotateIn demo-anim">rotateIn</div>
+            <div class="demo-label">.rotateIn</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated wiggle demo-anim">Wiggle</div>
+            <div class="demo-label">.wiggle</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated buzz demo-anim">Buzz</div>
+            <div class="demo-label">.buzz</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated buzzOut demo-anim">Buzz Out</div>
+            <div class="demo-label">.buzzOut</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+        <div class="demo-card">
+            <div class="animated pulseGrow demo-anim">Pulse Grow</div>
+            <div class="demo-label">.pulseGrow</div>
+            <button class="demo-btn" onclick="replay(this)">Replay</button>
+        </div>
+    </div>
+
+    <h2 style="text-align:center;">More Animations Coming Soon!</h2>
+    <script>
+        // Replay animation utility
+        function replay(btn) {
+            const anim = btn.parentElement.querySelector('.demo-anim');
+            anim.classList.remove('animated');
+            void anim.offsetWidth; // force reflow
+            anim.classList.add('animated');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+/* ===========================================================================
+   GeeksforGeeks-Style Border Animation Utility (g4g-border.css)
+   Modern, accessible, and customizable border animation for WordPress blocks, shortcodes, or themes.
+   ---------------------------------------------------------------------------
+   - Use .ba-g4g-border on any element to apply the animated border
+   - Custom properties for color, width, and radius
+   - Accessible: triggers on hover and focus-visible
+   - Minimal, robust, and easy to extend
+   ========================================================================= */
+
+.ba-g4g-border {
+  position: relative;
+  z-index: 0;
+  --ba-g4g-border-color: var(--ba-border-color, #111);
+  --ba-g4g-border-width: var(--ba-border-width, 2px);
+  --ba-g4g-border-radius: var(--ba-border-radius, 0.5em);
+  border-radius: var(--ba-g4g-border-radius);
+}
+
+.ba-g4g-border::before,
+.ba-g4g-border::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border: var(--ba-g4g-border-width) solid transparent;
+  border-radius: var(--ba-g4g-border-radius);
+  box-sizing: border-box;
+  width: 0;
+  height: 0;
+  top: calc(-1 * var(--ba-g4g-border-width));
+  left: calc(-1 * var(--ba-g4g-border-width));
+  transition: none;
+  z-index: 1;
+}
+
+.ba-g4g-border:hover::before,
+.ba-g4g-border:focus-visible::before {
+  animation: ba-g4g-animate 0.8s cubic-bezier(.77,0,.18,1) forwards;
+}
+
+.ba-g4g-border:hover::after,
+.ba-g4g-border:focus-visible::after {
+  animation: ba-g4g-animates 0.8s cubic-bezier(.77,0,.18,1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ba-g4g-border:hover::before,
+  .ba-g4g-border:focus-visible::before,
+  .ba-g4g-border:hover::after,
+  .ba-g4g-border:focus-visible::after {
+    animation: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-color: var(--ba-g4g-border-color) !important;
+  }
+}
+
+@keyframes ba-g4g-animate {
+  0% {
+    width: 0;
+    height: 0;
+    border-top-color: var(--ba-g4g-border-color);
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  50% {
+    width: 100%;
+    height: 0;
+    border-top-color: var(--ba-g4g-border-color);
+    border-right-color: var(--ba-g4g-border-color);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-top-color: var(--ba-g4g-border-color);
+    border-right-color: var(--ba-g4g-border-color);
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+}
+
+@keyframes ba-g4g-animates {
+  0% {
+    width: 0;
+    height: 0;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: var(--ba-g4g-border-color);
+  }
+  50% {
+    width: 0;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--ba-g4g-border-color);
+    border-left-color: var(--ba-g4g-border-color);
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-top-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: var(--ba-g4g-border-color);
+    border-left-color: var(--ba-g4g-border-color);
+  }
+}
+
+.ba-g4g-border > * {
+  position: relative;
+  z-index: 2;
+}

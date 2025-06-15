@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Border Animations Demo</title>
+    <!-- Tailwind CSS CDN for basic styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Apply Inter font family */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        /*
+         * Border Animations CSS
+         * Modern, accessible, and customizable border animation utilities
+         * v1.4.0
+         * Author: David E. England, Ph.D.
+         *
+         * Features:
+         * - Conic gradient, sparkler/comet, animated solid, and animated dashed border effects
+         * - Utility classes for clockwise/counterclockwise rotation
+         * - Robust rectangular border masking for all aspect ratios
+         * - Modern CSS (conic-gradient, mask, keyframes, :is, :where, @layer)
+         * - Accessible, responsive, and themeable
+         * - Verbose documentation for maintainability
+         *
+         * Usage:
+         * <div class="ba-animate">Conic Border</div>
+         * <div class="ba-animate ba-sparkler ba-cw">Sparkler Border (CW)</div>
+         * <div class="ba-animate ba-sparkler ba-ccw">Sparkler Border (CCW)</div>
+         * <div class="ba-animate ba-animated-solid">Solid Animated Border</div>
+         * <div class="ba-animate ba-dashed">Dashed Animated Border</div>
+         *
+         * // For custom color, width, or radius, use inline style or utility classes
+         * <div class="ba-animate" style="--ba-color: #00b894; --ba-radius: 2em;">Custom</div>
+         *
+         * // The conic and sparkler borders now use a rectangular mask, so the animated border is visible on all sides, not just the corners.
+         */
+
+        :root {
+            --ba-color: #0073e6;
+            --ba-color-alt: #ac3033;
+            --ba-color-accent: #ffd700;
+            --ba-radius: 1em;
+            --ba-width: 4px;
+
+            /* New CSS Variables for additional effects */
+            --ba-glowing-color: #6a0dad;
+            --ba-fade-in-color: #20c997;
+        }
+
+        @layer border-animations {
+            .ba-animate {
+                position: relative;
+                display: inline-block;
+                padding: 1.5em 2em;
+                background: #fff;
+                border: var(--ba-width, 4px) solid transparent;
+                border-radius: var(--ba-radius, 1em);
+                overflow: hidden;
+                z-index: 1;
+                /* Updated transition to include transform for general hover effect */
+                transition: box-shadow 0.2s, border-radius 0.3s, transform 0.2s ease-out;
+                box-sizing: border-box;
+            }
+
+            /* General hover effect for ba-animate elements */
+            /* This will apply unless a more specific hover/focus rule overrides it */
+            .ba-animate:hover {
+                transform: translateY(-2px); /* Subtle lift */
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Gentle shadow */
+            }
+
+            /* --- Conic and Sparkler Borders: Robust Rectangular Mask --- */
+            .ba-conic,
+            .ba-sparkler {
+                border: none;
+                position: relative;
+            }
+            .ba-conic::before,
+            .ba-sparkler::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                z-index: -1;
+                border-radius: inherit;
+                /* For .ba-conic: full ring; for .ba-sparkler: single highlight */
+                background: inherit;
+                /* Robust rectangular border mask: visible only on the border area, works for all aspect ratios */
+                -webkit-mask-image:
+                    linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+                -webkit-mask-composite: xor;
+                mask-composite: exclude;
+                mask-image:
+                    linear-gradient(#fff 0 0) content-box,
+                    linear-gradient(#fff 0 0);
+                mask-composite: exclude;
+                pointer-events: none;
+                animation: ba-spin 2.5s linear infinite;
+            }
+            /* Conic border: animated full ring */
+            .ba-conic::before {
+                background: conic-gradient(from 0deg, var(--ba-color), var(--ba-color-alt), var(--ba-color-accent), var(--ba-color) 360deg);
+                animation-name: ba-spin;
+            }
+            /* Sparkler border: single highlight (comet) */
+            .ba-sparkler::before {
+                background: conic-gradient(
+                    from 0deg,
+                    transparent 0deg 320deg,
+                    var(--ba-color-accent, #ffd700) 340deg 360deg,
+                    transparent 360deg
+                );
+                animation-name: ba-sparkler-spin-cw;
+            }
+            .ba-sparkler.ba-ccw::before {
+                animation-name: ba-sparkler-spin-ccw;
+            }
+            .ba-sparkler.ba-cw::before {
+                animation-name: ba-sparkler-spin-cw;
+            }
+            @keyframes ba-spin {
+                to { transform: rotate(1turn); }
+            }
+            @keyframes ba-sparkler-spin-cw {
+                to { transform: rotate(1turn); }
+            }
+            @keyframes ba-sparkler-spin-ccw {
+                to { transform: rotate(-1turn); }
+            }
+
+            /* Animated solid border (pulse effect) */
+            .ba-animated-solid {
+                border: var(--ba-width, 4px) solid var(--ba-color, #0073e6);
+                animation: ba-pulse 1.2s infinite alternate;
+            }
+            @keyframes ba-pulse {
+                0% { box-shadow: 0 0 0 0 var(--ba-color, #0073e6); }
+                100% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--ba-color, #0073e6) 30%, transparent); }
+            }
+
+            /* Dashed border with moving dash effect */
+            .ba-dashed {
+                border: var(--ba-width, 4px) dashed var(--ba-color-alt, #ac3033);
+                background-clip: padding-box;
+                animation: ba-dashmove 1.5s linear infinite;
+            }
+            @keyframes ba-dashmove {
+                0% { border-color: var(--ba-color-alt, #ac3033); }
+                100% { border-color: var(--ba-color-accent, #ffd700); }
+            }
+
+            /* GeeksforGeeks-style animated border utility  https: //www.geeksforgeeks.org/css/how-to-create-border-animation-using-css/
+            */
+            /*
+             * .ba-g4g-border — GeeksforGeeks-style animated border utility
+             * Modern, accessible, and highly customizable border animation for any block or element.
+             *
+             * Features:
+             * - Animated border draws around the element on hover or keyboard focus (focus-visible)
+             * - Uses ::before and ::after for top/right and bottom/left border animation
+             * - Fully themeable with CSS custom properties (color, width, radius)
+             * - Robust for any content size, aspect ratio, or block context
+             * - Accessible: triggers on :hover and :focus-visible, does not interfere with content
+             * - Minimal specificity, works with utility classes and inline styles
+             *
+             * Usage:
+             * <div class="ba-g4g-border">Content</div>
+             * <div class="ba-g4g-border" style="--ba-g4g-border-color: #0073e6; --ba-g4g-border-width: 3px; --ba-g4g-border-radius: 1em;">Custom</div>
+             *
+             * // In WordPress block editor, use as a Group or Custom HTML block
+             * // See plugin README for ready-to-paste block example
+             *
+             * Custom Properties:
+             * --ba-g4g-border-color: Border color (default: #111)
+             * --ba-g4g-border-width: Border thickness (default: 2px)
+             * --ba-g4g-border-radius: Border radius (default: 0.5em)
+             */
+
+            .ba-g4g-border {
+                position: relative;
+                z-index: 0;
+                --ba-g4g-border-color: var(--ba-border-color, #111);
+                --ba-g4g-border-width: var(--ba-border-width, 2px);
+                --ba-g4g-border-radius: var(--ba-border-radius, 0.5em);
+                border-radius: var(--ba-g4g-border-radius);
+            }
+
+            .ba-g4g-border::before,
+            .ba-g4g-border::after {
+                content: "";
+                position: absolute;
+                pointer-events: none;
+                border: var(--ba-g4g-border-width) solid transparent;
+                border-radius: var(--ba-g4g-border-radius);
+                box-sizing: border-box;
+                width: 0;
+                height: 0;
+                top: calc(-1 * var(--ba-g4g-border-width));
+                left: calc(-1 * var(--ba-g4g-border-width));
+                transition: none;
+                z-index: 1;
+            }
+
+            /* Animate border on hover or keyboard focus (accessibility) */
+            .ba-g4g-border:hover::before,
+            .ba-g4g-border:focus-visible::before {
+                animation: ba-g4g-animate 0.8s cubic-bezier(.77,0,.18,1) forwards;
+            }
+
+            .ba-g4g-border:hover::after,
+            .ba-g4g-border:focus-visible::after {
+                animation: ba-g4g-animates 0.8s cubic-bezier(.77,0,.18,1) forwards;
+            }
+
+            /* Reduced motion: disables animation for users who prefer it */
+            @media (prefers-reduced-motion: reduce) {
+                .ba-g4g-border:hover::before,
+                .ba-g4g-border:focus-visible::before,
+                .ba-g4g-border:hover::after,
+                .ba-g4g-border:focus-visible::after {
+                    animation: none !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    border-color: var(--ba-g4g-border-color) !important;
+                }
+            }
+
+            @keyframes ba-g4g-animate {
+                0% {
+                    width: 0;
+                    height: 0;
+                    border-top-color: var(--ba-g4g-border-color);
+                    border-right-color: transparent;
+                    border-bottom-color: transparent;
+                    border-left-color: transparent;
+                }
+                50% {
+                    width: 100%;
+                    height: 0;
+                    border-top-color: var(--ba-g4g-border-color);
+                    border-right-color: var(--ba-g4g-border-color);
+                    border-bottom-color: transparent;
+                    border-left-color: transparent;
+                }
+                100% {
+                    width: 100%;
+                    height: 100%;
+                    border-top-color: var(--ba-g4g-border-color);
+                    border-right-color: var(--ba-g4g-border-color);
+                    border-bottom-color: transparent;
+                    border-left-color: transparent;
+                }
+            }
+
+            @keyframes ba-g4g-animates {
+                0% {
+                    width: 0;
+                    height: 0;
+                    border-top-color: transparent;
+                    border-right-color: transparent;
+                    border-bottom-color: transparent;
+                    border-left-color: var(--ba-g4g-border-color);
+                }
+                50% {
+                    width: 0;
+                    height: 100%;
+                    border-top-color: transparent;
+                    border-right-color: transparent;
+                    border-bottom-color: var(--ba-g4g-border-color);
+                    border-left-color: var(--ba-g4g-border-color);
+                }
+                100% {
+                    width: 100%;
+                    height: 100%;
+                    border-top-color: transparent;
+                    border-right-color: transparent;
+                    border-bottom-color: var(--ba-g4g-border-color);
+                    border-left-color: var(--ba-g4g-border-color);
+                }
+            }
+
+            /* Ensure stacking context for content: all children above border */
+            .ba-g4g-border > :where(*) {
+                position: relative;
+                z-index: 2;
+            }
+
+            /* Utility: Responsive, accessible focus */
+            .ba-animate:focus {
+                outline: 2px solid var(--ba-color, #0073e6);
+                outline-offset: 2px;
+            }
+
+            /* Utility: Demo content styling */
+            .ba-animate > * {
+                position: relative;
+                z-index: 2;
+            }
+
+            /* Utility: .ba-block for full width */
+            .ba-block { display: block; width: 100%; }
+
+            /* Utility: .ba-center for centering */
+            .ba-center { margin-left: auto; margin-right: auto; display: block; }
+
+            /* Modern selector demo: highlight any .ba-animate inside .ba-demo using :has */
+            .ba-demo:has(.ba-animate:focus) {
+                box-shadow: 0 0 0 4px var(--ba-color-accent, #ffd700);
+            }
+
+            /* ===========================================================================
+               Animated Gradient Border Utility (.ba-gradient-border)
+               Modern, accessible, and customizable animated gradient border for any block.
+               ---------------------------------------------------------------------------
+               - Use .ba-gradient-border on any element
+               - Custom properties for border width, radius, and gradient colors
+               - Responsive, accessible, and easy to extend
+               ========================================================================= */
+
+            .ba-gradient-border {
+                --ba-gradient-border-width: 3px;
+                --ba-gradient-radius: 1em;
+                --ba-gradient-bg: linear-gradient(
+                    60deg,
+                    hsl(224, 85%, 66%),
+                    hsl(269, 85%, 66%),
+                    hsl(314, 85%, 66%),
+                    hsl(359, 85%, 66%),
+                    hsl(44, 85%, 66%),
+                    hsl(89, 85%, 66%),
+                    hsl(134, 85%, 66%),
+                    hsl(179, 85%, 66%)
+                );
+                position: relative;
+                z-index: 0;
+                border-radius: var(--ba-gradient-radius);
+            }
+
+            .ba-gradient-border > * {
+                position: relative;
+                z-index: 1;
+            }
+
+            .ba-gradient-border::after {
+                content: "";
+                position: absolute;
+                top: calc(-1 * var(--ba-gradient-border-width));
+                left: calc(-1 * var(--ba-gradient-border-width));
+                width: calc(100% + var(--ba-gradient-border-width) * 2);
+                height: calc(100% + var(--ba-gradient-border-width) * 2);
+                z-index: -1;
+                border-radius: var(--ba-gradient-radius);
+                background: var(--ba-gradient-bg);
+                background-size: 300% 300%;
+                background-position: 0 50%;
+                animation: ba-move-gradient 4s alternate infinite;
+                pointer-events: none;
+            }
+
+            @keyframes ba-move-gradient {
+                50% {
+                    background-position: 100% 50%;
+                }
+            }
+
+            /* ===========================================================================
+               New Border Animation: Glowing Border (.ba-glowing)
+               --------------------------------------------------------------------------- */
+            .ba-glowing {
+                border: var(--ba-width, 4px) solid transparent; /* Transparent border by default */
+                position: relative;
+                overflow: visible; /* Allow the glow shadow to extend outside */
+                animation: ba-glowing-pulse 2s infinite alternate; /* Animate the border color */
+            }
+
+            .ba-glowing::before {
+                content: '';
+                position: absolute;
+                /* Adjust inset to control how far the glow extends from the actual element */
+                inset: -5px; /* Slightly larger than the element */
+                border-radius: inherit;
+                background: transparent;
+                /* Multiple box-shadows for a stronger glow effect */
+                box-shadow:
+                    0 0 10px var(--ba-glowing-color),
+                    0 0 20px var(--ba-glowing-color),
+                    0 0 30px var(--ba-glowing-color),
+                    0 0 40px var(--ba-glowing-color);
+                z-index: -1;
+                opacity: 0.7; /* Starting opacity */
+                animation: ba-glowing-fade 2s infinite alternate; /* Animate opacity and slight scale */
+                pointer-events: none; /* Ensure it doesn't block interactions */
+            }
+
+            @keyframes ba-glowing-pulse {
+                0% { border-color: color-mix(in srgb, var(--ba-glowing-color) 70%, transparent); }
+                100% { border-color: var(--ba-glowing-color); }
+            }
+
+            @keyframes ba-glowing-fade {
+                0% { opacity: 0.7; transform: scale(1); }
+                100% { opacity: 1; transform: scale(1.02); }
+            }
+
+            /* ===========================================================================
+               New Border Animation: Fade-in Border (.ba-fade-in-border)
+               --------------------------------------------------------------------------- */
+            .ba-fade-in-border {
+                border: var(--ba-width, 4px) solid transparent; /* Start with transparent border */
+                transition: border-color 0.4s ease-out, box-shadow 0.4s ease-out; /* Smooth transition */
+            }
+
+            .ba-fade-in-border:hover,
+            .ba-fade-in-border:focus-visible {
+                border-color: var(--ba-fade-in-color, #20c997); /* Reveal border color on hover/focus */
+                box-shadow: 0 0 15px color-mix(in srgb, var(--ba-fade-in-color, #20c997) 50%, transparent); /* Subtle shadow on hover */
+                transform: translateY(-2px); /* Maintain general hover lift */
+            }
+        }
+
+        /* Fallback rules outside @layer, primarily for older browser compatibility,
+           though modern browsers handle @layer well. */
+        .ba-animate {
+            position: relative;
+            display: inline-block;
+            padding: 1.5em 2em;
+            background: #fff;
+            border: var(--ba-width, 4px) solid transparent;
+            border-radius: var(--ba-radius, 1em);
+            overflow: hidden;
+            z-index: 1;
+            transition: box-shadow 0.2s, border-radius 0.3s, transform 0.2s ease-out;
+            box-sizing: border-box;
+        }
+
+        /* Ensuring focus styles are consistent across all types */
+        .ba-animate:focus {
+            outline: 2px solid var(--ba-color, #0073e6);
+            outline-offset: 2px;
+        }
+        .ba-demo:has(.ba-animate:focus) {
+            box-shadow: 0 0 0 4px var(--ba-color-accent, #ffd700);
+        }
+    </style>
+</head>
+<body class="p-8 md:p-12 lg:p-16 flex flex-col items-center min-h-screen">
+    <div class="container mx-auto p-4 md:p-8 bg-white rounded-lg shadow-xl max-w-4xl">
+        <h1 class="text-4xl font-bold text-gray-800 text-center mb-10">Enhanced Border Animations Showcase</h1>
+        <p class="text-lg text-gray-600 text-center mb-12">Explore modern, accessible, and customizable border animation utilities, with new glowing and fade-in effects.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <!-- Animated Solid Border -->
+            <div class="ba-animate ba-animated-solid text-center p-6 bg-green-50 text-green-800 font-semibold rounded-xl shadow-md" style="--ba-color: #28a745;">
+                <p class="text-xl">Animated Solid Border</p>
+                <p class="text-sm mt-2">Pulsating shadow effect.</p>
+            </div>
+
+            <!-- Dashed Animated Border -->
+            <div class="ba-animate ba-dashed text-center p-6 bg-yellow-50 text-yellow-800 font-semibold rounded-xl shadow-md" style="--ba-color-alt: #ffc107; --ba-color-accent: #fd7e14;">
+                <p class="text-xl">Dashed Animated Border</p>
+                <p class="text-sm mt-2">Dashes change color.</p>
+            </div>
+
+            <!-- GeeksforGeeks-style Animated Border -->
+            <div class="ba-animate ba-g4g-border text-center p-6 bg-red-50 text-red-800 font-semibold rounded-xl shadow-md" style="--ba-g4g-border-color: #dc3545; --ba-g4g-border-width: 3px;">
+                <p class="text-xl">G4G-style Border</p>
+                <p class="text-sm mt-2">Hover/Focus to draw border.</p>
+            </div>
+
+            <!-- Animated Gradient Border -->
+            <div class="ba-animate ba-gradient-border text-center p-6 bg-indigo-50 text-indigo-800 font-semibold rounded-xl shadow-md">
+                <p class="text-xl">Gradient Border</p>
+                <p class="text-sm mt-2">Animated, shifting gradient.</p>
+            </div>
+
+            <!-- New: Glowing Border -->
+            <div class="ba-animate ba-glowing text-center p-6 bg-purple-50 text-purple-800 font-semibold rounded-xl shadow-md" style="--ba-glowing-color: #9b59b6;">
+                <p class="text-xl">Glowing Border</p>
+                <p class="text-sm mt-2">Pulsating neon-like glow.</p>
+            </div>
+
+            <!-- New: Fade-in Border -->
+            <div class="ba-animate ba-fade-in-border text-center p-6 bg-cyan-50 text-cyan-800 font-semibold rounded-xl shadow-md" style="--ba-fade-in-color: #00bcd4;">
+                <p class="text-xl">Fade-in Border</p>
+                <p class="text-sm mt-2">Border appears smoothly on hover.</p>
+            </div>
+        </div>
+
+        <p class="text-md text-gray-500 text-center mt-12">
+            These examples demonstrate the flexibility and visual appeal of the CSS border animations.
+            Try hovering over or tabbing to the elements to see their effects!
+        </p>
+
+        <!-- =============================
+         Animate.css-inspired Border Animation Utilities Demo
+         ============================= -->
+    <section class="ba-demo-section" id="ba-animatecss-demo">
+      <h2>Animate.css-inspired Border Animation Utilities</h2>
+      <p>These classes can be combined with any <code>.ba-animate</code> border effect. All animations respect <code>prefers-reduced-motion</code>.</p>
+      <div class="ba-demo-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2em;align-items:stretch;">
+        <div class="ba-animate ba-bounce" tabindex="0"><strong>.ba-bounce</strong><br>Bounce</div>
+        <div class="ba-animate ba-flash" tabindex="0"><strong>.ba-flash</strong><br>Flash</div>
+        <div class="ba-animate ba-pulse" tabindex="0"><strong>.ba-pulse</strong><br>Pulse</div>
+        <div class="ba-animate ba-rubberBand" tabindex="0"><strong>.ba-rubberBand</strong><br>RubberBand</div>
+        <div class="ba-animate ba-shakeX" tabindex="0"><strong>.ba-shakeX</strong><br>ShakeX</div>
+        <div class="ba-animate ba-shakeY" tabindex="0"><strong>.ba-shakeY</strong><br>ShakeY</div>
+        <div class="ba-animate ba-headShake" tabindex="0"><strong>.ba-headShake</strong><br>HeadShake</div>
+        <div class="ba-animate ba-swing" tabindex="0"><strong>.ba-swing</strong><br>Swing</div>
+        <div class="ba-animate ba-tada" tabindex="0"><strong>.ba-tada</strong><br>Tada</div>
+        <div class="ba-animate ba-wobble" tabindex="0"><strong>.ba-wobble</strong><br>Wobble</div>
+        <div class="ba-animate ba-jello" tabindex="0"><strong>.ba-jello</strong><br>Jello</div>
+        <div class="ba-animate ba-heartBeat" tabindex="0"><strong>.ba-heartBeat</strong><br>HeartBeat</div>
+      </div>
+      <p style="margin-top:2em;font-size:0.95em;color:#666;">Tip: Try combining these with other border effects (e.g., <code>.ba-gradient-border</code>, <code>.ba-glowing</code>) for even more visual impact.</p>
+    </section>
+    </div>
+</body>
+</html>

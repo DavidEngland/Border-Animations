@@ -1,0 +1,24 @@
+# .gitignore for WordPress Plugin Development
+*.log
+*.tmp
+*.DS_Store
+node_modules/
+.sass-cache/
+.vscode/
+.idea/
+/dist/
+/build/
+.env
+.env.*
+composer.lock
+package-lock.json
+yarn.lock
+npm-debug.log
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/backup-*/
+wp-content/advanced-cache.php
+wp-content/object-cache.php
+wp-content/wp-cache-config.php
+wp-content/plugins/border-animations/.env

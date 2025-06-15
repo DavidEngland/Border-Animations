@@ -1,0 +1,749 @@
+/*
+ * Border Animations CSS
+ * Modern, accessible, and customizable border animation utilities
+ * v1.4.0
+ * Author: David E. England, Ph.D.
+ *
+ * Features:
+ * - Conic gradient, sparkler/comet, animated solid, and animated dashed border effects
+ * - Utility classes for clockwise/counterclockwise rotation
+ * - Robust rectangular border masking for all aspect ratios
+ * - Modern CSS (conic-gradient, mask, keyframes, :is, :where, @layer)
+ * - Accessible, responsive, and themeable
+ * - Verbose documentation for maintainability
+ *
+ * Usage:
+ *   <div class="ba-animate ba-conic">Conic Border</div>
+ *   <div class="ba-animate ba-sparkler ba-cw">Sparkler Border (CW)</div>
+ *   <div class="ba-animate ba-sparkler ba-ccw">Sparkler Border (CCW)</div>
+ *   <div class="ba-animate ba-animated-solid">Solid Animated Border</div>
+ *   <div class="ba-animate ba-dashed">Dashed Animated Border</div>
+ *
+ *   // For custom color, width, or radius, use inline style or utility classes
+ *   <div class="ba-animate ba-conic" style="--ba-color: #00b894; --ba-radius: 2em;">Custom</div>
+ *
+ *   // The conic and sparkler borders now use a rectangular mask, so the animated border is visible on all sides, not just the corners.
+ */
+
+:root {
+  --ba-color: #0073e6;
+  --ba-color-alt: #ac3033;
+  --ba-color-accent: #ffd700;
+  --ba-radius: 1em;
+  --ba-width: 4px;
+}
+
+@layer border-animations {
+  .ba-animate {
+    position: relative;
+    display: inline-block;
+    padding: 1.5em 2em;
+    background: #fff;
+    border: var(--ba-width, 4px) solid transparent;
+    border-radius: var(--ba-radius, 1em);
+    overflow: hidden;
+    z-index: 1;
+    transition: box-shadow 0.2s, border-radius 0.3s;
+    box-sizing: border-box;
+  }
+
+  /* --- Conic and Sparkler Borders: Robust Rectangular Mask --- */
+  .ba-conic,
+  .ba-sparkler {
+    border: none;
+    position: relative;
+  }
+  .ba-conic::before,
+  .ba-sparkler::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    /* For .ba-conic: full ring; for .ba-sparkler: single highlight */
+    background: inherit;
+    /* Robust rectangular border mask: visible only on the border area, works for all aspect ratios */
+    -webkit-mask-image:
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    mask-image:
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: ba-spin 2.5s linear infinite;
+  }
+  /* Conic border: animated full ring */
+  .ba-conic::before {
+    background: conic-gradient(from 0deg, var(--ba-color), var(--ba-color-alt), var(--ba-color-accent), var(--ba-color) 360deg);
+    animation-name: ba-spin;
+  }
+  /* Sparkler border: single highlight (comet) */
+  .ba-sparkler::before {
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg 320deg,
+      var(--ba-color-accent, #ffd700) 340deg 360deg,
+      transparent 360deg
+    );
+    animation-name: ba-sparkler-spin-cw;
+  }
+  .ba-sparkler.ba-ccw::before {
+    animation-name: ba-sparkler-spin-ccw;
+  }
+  .ba-sparkler.ba-cw::before {
+    animation-name: ba-sparkler-spin-cw;
+  }
+  @keyframes ba-spin {
+    to { transform: rotate(1turn); }
+  }
+  @keyframes ba-sparkler-spin-cw {
+    to { transform: rotate(1turn); }
+  }
+  @keyframes ba-sparkler-spin-ccw {
+    to { transform: rotate(-1turn); }
+  }
+
+  /* Animated solid border (pulse effect) */
+  .ba-animated-solid {
+    border: var(--ba-width, 4px) solid var(--ba-color, #0073e6);
+    animation: ba-pulse 1.2s infinite alternate;
+  }
+  @keyframes ba-pulse {
+    0% { box-shadow: 0 0 0 0 var(--ba-color, #0073e6); }
+    100% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--ba-color, #0073e6) 30%, transparent); }
+  }
+
+  /* Dashed border with moving dash effect */
+  .ba-dashed {
+    border: var(--ba-width, 4px) dashed var(--ba-color-alt, #ac3033);
+    background-clip: padding-box;
+    animation: ba-dashmove 1.5s linear infinite;
+  }
+  @keyframes ba-dashmove {
+    0% { border-color: var(--ba-color-alt, #ac3033); }
+    100% { border-color: var(--ba-color-accent, #ffd700); }
+  }
+
+  /* GeeksforGeeks-style animated border utility  https: //www.geeksforgeeks.org/css/how-to-create-border-animation-using-css/ 
+  */
+  /*
+   * .ba-g4g-border — GeeksforGeeks-style animated border utility
+   * Modern, accessible, and highly customizable border animation for any block or element.
+   *
+   * Features:
+   * - Animated border draws around the element on hover or keyboard focus (focus-visible)
+   * - Uses ::before and ::after for top/right and bottom/left border animation
+   * - Fully themeable with CSS custom properties (color, width, radius)
+   * - Robust for any content size, aspect ratio, or block context
+   * - Accessible: triggers on :hover and :focus-visible, does not interfere with content
+   * - Minimal specificity, works with utility classes and inline styles
+   *
+   * Usage:
+   *   <div class="ba-g4g-border">Content</div>
+   *   <div class="ba-g4g-border" style="--ba-g4g-border-color: #0073e6; --ba-g4g-border-width: 3px; --ba-g4g-border-radius: 1em;">Custom</div>
+   *
+   *   // In WordPress block editor, use as a Group or Custom HTML block
+   *   // See plugin README for ready-to-paste block example
+   *
+   * Custom Properties:
+   *   --ba-g4g-border-color: Border color (default: #111)
+   *   --ba-g4g-border-width: Border thickness (default: 2px)
+   *   --ba-g4g-border-radius: Border radius (default: 0.5em)
+   */
+
+  .ba-g4g-border {
+    position: relative;
+    z-index: 0;
+    --ba-g4g-border-color: var(--ba-border-color, #111);
+    --ba-g4g-border-width: var(--ba-border-width, 2px);
+    --ba-g4g-border-radius: var(--ba-border-radius, 0.5em);
+    border-radius: var(--ba-g4g-border-radius);
+  }
+
+  .ba-g4g-border::before,
+  .ba-g4g-border::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    border: var(--ba-g4g-border-width) solid transparent;
+    border-radius: var(--ba-g4g-border-radius);
+    box-sizing: border-box;
+    width: 0;
+    height: 0;
+    top: calc(-1 * var(--ba-g4g-border-width));
+    left: calc(-1 * var(--ba-g4g-border-width));
+    transition: none;
+    z-index: 1;
+  }
+
+  /* Animate border on hover or keyboard focus (accessibility) */
+  .ba-g4g-border:hover::before,
+  .ba-g4g-border:focus-visible::before {
+    animation: ba-g4g-animate 0.8s cubic-bezier(.77,0,.18,1) forwards;
+  }
+
+  .ba-g4g-border:hover::after,
+  .ba-g4g-border:focus-visible::after {
+    animation: ba-g4g-animates 0.8s cubic-bezier(.77,0,.18,1) forwards;
+  }
+
+  /* Reduced motion: disables animation for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    .ba-g4g-border:hover::before,
+    .ba-g4g-border:focus-visible::before,
+    .ba-g4g-border:hover::after,
+    .ba-g4g-border:focus-visible::after {
+      animation: none !important;
+      width: 100% !important;
+      height: 100% !important;
+      border-color: var(--ba-g4g-border-color) !important;
+    }
+  }
+
+  @keyframes ba-g4g-animate {
+    0% {
+      width: 0;
+      height: 0;
+      border-top-color: var(--ba-g4g-border-color);
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+    }
+    50% {
+      width: 100%;
+      height: 0;
+      border-top-color: var(--ba-g4g-border-color);
+      border-right-color: var(--ba-g4g-border-color);
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+    }
+    100% {
+      width: 100%;
+      height: 100%;
+      border-top-color: var(--ba-g4g-border-color);
+      border-right-color: var(--ba-g4g-border-color);
+      border-bottom-color: transparent;
+      border-left-color: transparent;
+    }
+  }
+
+  @keyframes ba-g4g-animates {
+    0% {
+      width: 0;
+      height: 0;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-bottom-color: transparent;
+      border-left-color: var(--ba-g4g-border-color);
+    }
+    50% {
+      width: 0;
+      height: 100%;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-bottom-color: var(--ba-g4g-border-color);
+      border-left-color: var(--ba-g4g-border-color);
+    }
+    100% {
+      width: 100%;
+      height: 100%;
+      border-top-color: transparent;
+      border-right-color: transparent;
+      border-bottom-color: var(--ba-g4g-border-color);
+      border-left-color: var(--ba-g4g-border-color);
+    }
+  }
+
+  /* Ensure stacking context for content: all children above border */
+  .ba-g4g-border > :where(*) {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Utility: Responsive, accessible focus */
+  .ba-animate:focus {
+    outline: 2px solid var(--ba-color, #0073e6);
+    outline-offset: 2px;
+  }
+
+  /* Utility: Demo content styling */
+  .ba-animate > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Utility: .ba-block for full width */
+  .ba-block { display: block; width: 100%; }
+
+  /* Utility: .ba-center for centering */
+  .ba-center { margin-left: auto; margin-right: auto; display: block; }
+
+  /* Modern selector demo: highlight any .ba-animate inside .ba-demo using :has */
+  .ba-demo:has(.ba-animate:focus) {
+    box-shadow: 0 0 0 4px var(--ba-color-accent, #ffd700);
+  }
+
+  /* ===========================================================================
+     Animated Gradient Border Utility (.ba-gradient-border)
+     Modern, accessible, and customizable animated gradient border for any block.
+     ---------------------------------------------------------------------------
+     - Use .ba-gradient-border on any element (block, card, button, etc.)
+     - Custom properties for border width, radius, and gradient colors
+     - Responsive, accessible, and easy to extend
+     - Works with WordPress blocks, shortcodes, and themes
+     - Fully documented for maintainability
+     ========================================================================= */
+
+  .ba-gradient-border {
+    /* Custom properties for easy theming */
+    --ba-gradient-border-width: 3px;
+    --ba-gradient-radius: 1em;
+    --ba-gradient-bg: linear-gradient(
+      60deg,
+      hsl(224, 85%, 66%),
+      hsl(269, 85%, 66%),
+      hsl(314, 85%, 66%),
+      hsl(359, 85%, 66%),
+      hsl(44, 85%, 66%),
+      hsl(89, 85%, 66%),
+      hsl(134, 85%, 66%),
+      hsl(179, 85%, 66%)
+    );
+    position: relative;
+    z-index: 0;
+    border-radius: var(--ba-gradient-radius);
+    /* Optional: add padding for content separation */
+  }
+
+  /* Ensure content is above the border effect */
+  .ba-gradient-border > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Animated border effect using ::after */
+  .ba-gradient-border::after {
+    content: "";
+    position: absolute;
+    top: calc(-1 * var(--ba-gradient-border-width));
+    left: calc(-1 * var(--ba-gradient-border-width));
+    width: calc(100% + var(--ba-gradient-border-width) * 2);
+    height: calc(100% + var(--ba-gradient-border-width) * 2);
+    z-index: -1;
+    border-radius: var(--ba-gradient-radius);
+    background: var(--ba-gradient-bg);
+    background-size: 300% 300%;
+    background-position: 0 50%;
+    animation: ba-move-gradient 4s alternate infinite;
+    pointer-events: none;
+    /* Optional: add a subtle box-shadow for extra depth */
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  }
+
+  @keyframes ba-move-gradient {
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Accessibility: prefers-reduced-motion disables animation */
+  @media (prefers-reduced-motion: reduce) {
+    .ba-gradient-border::after {
+      animation: none !important;
+      background-position: 50% 50% !important;
+    }
+  }
+
+  /* Usage Example:
+  <div class="ba-gradient-border" style="padding:2em; background:#222; color:#fff;">
+    Animated Gradient Border
+  </div>
+
+  // Customization Example:
+  <div class="ba-gradient-border" style="--ba-gradient-border-width:6px; --ba-gradient-radius:2em; --ba-gradient-bg:linear-gradient(90deg,#ff8a00,#e52e71,#0073e6);">
+    Custom Gradient Border
+  </div>
+  */
+}
+
+/* Fallback for browsers without @layer or mask-image: conic/sparkler border will appear as a filled window, not a ring. All other styles remain accessible. */
+.ba-animate {
+  position: relative;
+  display: inline-block;
+  padding: 1.5em 2em;
+  background: #fff;
+  border: 4px solid transparent;
+  border-radius: 1em;
+  overflow: hidden;
+  z-index: 1;
+  transition: box-shadow 0.2s;
+}
+
+/* Conic gradient border animation */
+.ba-conic {
+  border: none;
+  position: relative;
+}
+.ba-conic::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  /* The border thickness: adjust as needed */
+  padding: 0;
+  /* Show only the border ring using mask */
+  background: conic-gradient(from 0deg, var(--ba-color, #0073e6), var(--ba-color-alt, #ac3033), var(--ba-color-accent, #ffd700), var(--ba-color, #0073e6) 360deg);
+  /* Create a donut mask: visible only on the border area */
+  -webkit-mask-image: 
+    linear-gradient(circle, transparent calc(100% - var(--ba-width, 4px)), black calc(100% - var(--ba-width, 4px)));
+  pointer-events: none;
+  animation: ba-spin 2.5s linear infinite;
+}
+
+@keyframes ba-spin {
+  to { transform: rotate(1turn); }
+}
+
+/* Simple animated solid border */
+.ba-animated-solid {
+  border: 4px solid #0073e6;
+  animation: ba-pulse 1.2s infinite alternate;
+}
+@keyframes ba-pulse {
+  0% { box-shadow: 0 0 0 0 #0073e6; }
+  100% { box-shadow: 0 0 0 8px rgba(0,115,230,0.15); }
+}
+
+/* Dashed border with moving dash effect */
+.ba-dashed {
+  border: 4px dashed #ac3033;
+  background-clip: padding-box;
+  animation: ba-dashmove 1.5s linear infinite;
+}
+@keyframes ba-dashmove {
+  0% { border-style: dashed; border-width: 4px; }
+  100% { border-style: dashed; border-width: 4px; border-color: #ffd700; }
+}
+
+/* Utility: Responsive, accessible focus */
+.ba-animate:focus {
+  outline: 2px solid #0073e6;
+  outline-offset: 2px;
+}
+
+/* Utility: Demo content styling */
+.ba-animate > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Utility: .ba-block for full width */
+.ba-block { display: block; width: 100%; }
+
+/* Utility: .ba-center for centering */
+.ba-center { margin-left: auto; margin-right: auto; display: block; }
+
+/* Modern selector demo: highlight any .ba-animate inside .ba-demo using :has */
+.ba-demo:has(.ba-animate:focus) {
+  box-shadow: 0 0 0 4px var(--ba-color-accent, #ffd700);
+}
+/* ===========================================================================
+               New Border Animation: Glowing Border (.ba-glowing)
+               --------------------------------------------------------------------------- */
+.ba-glowing {
+    border: var(--ba-width, 4px) solid transparent;
+    /* Transparent border by default */
+    position: relative;
+    overflow: visible;
+    /* Allow the glow shadow to extend outside */
+    animation: ba-glowing-pulse 2s infinite alternate;
+    /* Animate the border color */
+}
+
+.ba-glowing::before {
+    content: '';
+    position: absolute;
+    /* Adjust inset to control how far the glow extends from the actual element */
+    inset: -5px;
+    /* Slightly larger than the element */
+    border-radius: inherit;
+    background: transparent;
+    /* Multiple box-shadows for a stronger glow effect */
+    box-shadow:
+        0 0 10px var(--ba-glowing-color),
+        0 0 20px var(--ba-glowing-color),
+        0 0 30px var(--ba-glowing-color),
+        0 0 40px var(--ba-glowing-color);
+    z-index: -1;
+    opacity: 0.7;
+    /* Starting opacity */
+    animation: ba-glowing-fade 2s infinite alternate;
+    /* Animate opacity and slight scale */
+    pointer-events: none;
+    /* Ensure it doesn't block interactions */
+}
+
+@keyframes ba-glowing-pulse {
+    0% {
+        border-color: color-mix(in srgb, var(--ba-glowing-color) 70%, transparent);
+    }
+
+    100% {
+        border-color: var(--ba-glowing-color);
+    }
+}
+
+@keyframes ba-glowing-fade {
+    0% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+}
+
+/* ===========================================================================
+               New Border Animation: Fade-in Border (.ba-fade-in-border)
+               --------------------------------------------------------------------------- */
+.ba-fade-in-border {
+    border: var(--ba-width, 4px) solid transparent;
+    /* Start with transparent border */
+    transition: border-color 0.4s ease-out, box-shadow 0.4s ease-out;
+    /* Smooth transition */
+}
+
+.ba-fade-in-border:hover,
+.ba-fade-in-border:focus-visible {
+    border-color: var(--ba-fade-in-color, #20c997);
+    /* Reveal border color on hover/focus */
+    box-shadow: 0 0 15px color-mix(in srgb, var(--ba-fade-in-color, #20c997) 50%, transparent);
+    /* Subtle shadow on hover */
+    transform: translateY(-2px);
+    /* Maintain general hover lift */
+}
+
+/* ===========================================================================
+   Animate.css-inspired Border Animation Utilities
+   ---------------------------------------------------------------------------
+   - Use with .ba-animate or any border animation utility for extra motion
+   - Add to any element: <div class="ba-animate bounce">...</div>
+   - All classes are composable with border animation utilities
+   - Accessible: use with care for users with motion sensitivity
+   ========================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .bounce, .flash, .pulse, .rubberBand, .shake, .headShake, .swing, .tada, .wobble, .jello,
+  .bounceIn, .bounceInDown, .bounceInLeft, .bounceInRight, .bounceInUp,
+  .fadeIn, .fadeInDown, .fadeInLeft, .fadeInRight, .fadeInUp,
+  .lightSpeedIn, .rotateIn, .rotateInDownLeft, .rotateInDownRight, .rotateInUpLeft, .rotateInUpRight,
+  .rollIn, .zoomIn, .zoomInDown, .zoomInLeft, .zoomInRight, .zoomInUp,
+  .slideInDown, .slideInLeft, .slideInRight, .slideInUp {
+    animation: none !important;
+  }
+}
+
+/* Bounce */
+.bounce { animation: bounce 1s both; transform-origin: center bottom; }
+@keyframes bounce { from, 20%, 53%, 80%, to { animation-timing-function: cubic-bezier(0.215,0.610,0.355,1.000); transform: translate3d(0,0,0); } 40%,43% { animation-timing-function: cubic-bezier(0.755,0.050,0.855,0.060); transform: translate3d(0,-30px,0); } 70% { animation-timing-function: cubic-bezier(0.755,0.050,0.855,0.060); transform: translate3d(0,-15px,0); } 90% { transform: translate3d(0,-4px,0); } }
+
+/* Flash */
+.flash { animation: flash 1s both; }
+@keyframes flash { from,50%,to { opacity: 1; } 25%,75% { opacity: 0; } }
+
+/* Pulse */
+.pulse { animation: pulse 1s both; }
+@keyframes pulse { from { transform: scale3d(1,1,1); } 50% { transform: scale3d(1.05,1.05,1.05); } to { transform: scale3d(1,1,1); } }
+
+/* RubberBand */
+.rubberBand { animation: rubberBand 1s both; }
+@keyframes rubberBand { from { transform: scale3d(1,1,1); } 30% { transform: scale3d(1.25,0.75,1); } 40% { transform: scale3d(0.75,1.25,1); } 50% { transform: scale3d(1.15,0.85,1); } 65% { transform: scale3d(.95,1.05,1); } 75% { transform: scale3d(1.05,.95,1); } to { transform: scale3d(1,1,1); } }
+
+/* Shake */
+.shake { animation: shake 1s both; }
+@keyframes shake { from,to { transform: translate3d(0,0,0); } 10%,30%,50%,70%,90% { transform: translate3d(-10px,0,0); } 20%,40%,60%,80% { transform: translate3d(10px,0,0); } }
+
+/* HeadShake */
+.headShake { animation: headShake 1s both; animation-timing-function: ease-in-out; }
+@keyframes headShake { 0% { transform: translateX(0); } 6.5% { transform: translateX(-6px) rotateY(-9deg); } 18.5% { transform: translateX(5px) rotateY(7deg); } 31.5% { transform: translateX(-3px) rotateY(-5deg); } 43.5% { transform: translateX(2px) rotateY(3deg); } 50% { transform: translateX(0); } }
+
+/* Swing */
+.swing { animation: swing 1s both; transform-origin: top center; }
+@keyframes swing { 20% { transform: rotate3d(0,0,1,15deg); } 40% { transform: rotate3d(0,0,1,-10deg); } 60% { transform: rotate3d(0,0,1,5deg); } 80% { transform: rotate3d(0,0,1,-5deg); } to { transform: rotate3d(0,0,1,0deg); } }
+
+/* Tada */
+.tada { animation: tada 1s both; }
+@keyframes tada { from { transform: scale3d(1,1,1); } 10%,20% { transform: scale3d(.9,.9,.9) rotate3d(0,0,1,-3deg); } 30%,50%,70%,90% { transform: scale3d(1.1,1.1,1.1) rotate3d(0,0,1,3deg); } 40%,60%,80% { transform: scale3d(1.1,1.1,1.1) rotate3d(0,0,1,-3deg); } to { transform: scale3d(1,1,1); } }
+
+/* Wobble */
+.wobble { animation: wobble 1s both; }
+@keyframes wobble { from { transform: none; } 15% { transform: translate3d(-25%,0,0) rotate3d(0,0,1,-5deg); } 30% { transform: translate3d(20%,0,0) rotate3d(0,0,1,3deg); } 45% { transform: translate3d(-15%,0,0) rotate3d(0,0,1,-3deg); } 60% { transform: translate3d(10%,0,0) rotate3d(0,0,1,2deg); } 75% { transform: translate3d(-5%,0,0) rotate3d(0,0,1,-1deg); } to { transform: none; } }
+
+/* Jello */
+.jello { animation: jello 1s both; transform-origin: center; }
+@keyframes jello { from,11.1%,to { transform: none; } 22.2% { transform: skewX(-12.5deg) skewY(-12.5deg); } 33.3% { transform: skewX(6.25deg) skewY(6.25deg); } 44.4% { transform: skewX(-3.125deg) skewY(-3.125deg); } 55.5% { transform: skewX(1.5625deg) skewY(1.5625deg); } 66.6% { transform: skewX(-0.78125deg) skewY(-0.78125deg); } 77.7% { transform: skewX(0.390625deg) skewY(0.390625deg); } 88.8% { transform: skewX(-0.1953125deg) skewY(-0.1953125deg); } }
+
+/* FadeIn */
+.fadeIn { animation: fadeIn 1s both; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* FadeInDown */
+.fadeInDown { animation: fadeInDown 1s both; }
+@keyframes fadeInDown { from { opacity: 0; transform: translate3d(0,-100%,0); } to { opacity: 1; transform: none; } }
+
+/* FadeInLeft */
+.fadeInLeft { animation: fadeInLeft 1s both; }
+@keyframes fadeInLeft { from { opacity: 0; transform: translate3d(-100%,0,0); } to { opacity: 1; transform: none; } }
+
+/* FadeInRight */
+.fadeInRight { animation: fadeInRight 1s both; }
+@keyframes fadeInRight { from { opacity: 0; transform: translate3d(100%,0,0); } to { opacity: 1; transform: none; } }
+
+/* FadeInUp */
+.fadeInUp { animation: fadeInUp 1s both; }
+@keyframes fadeInUp { from { opacity: 0; transform: translate3d(0,100%,0); } to { opacity: 1; transform: none; } }
+
+/* SlideInDown */
+.slideInDown { animation: slideInDown 1s both; }
+@keyframes slideInDown { from { transform: translate3d(0,-100%,0); visibility: visible; } to { transform: translate3d(0,0,0); } }
+
+/* SlideInLeft */
+.slideInLeft { animation: slideInLeft 1s both; }
+@keyframes slideInLeft { from { transform: translate3d(-100%,0,0); visibility: visible; } to { transform: translate3d(0,0,0); } }
+
+/* SlideInRight */
+.slideInRight { animation: slideInRight 1s both; }
+@keyframes slideInRight { from { transform: translate3d(100%,0,0); visibility: visible; } to { transform: translate3d(0,0,0); } }
+
+/* SlideInUp */
+.slideInUp { animation: slideInUp 1s both; }
+@keyframes slideInUp { from { transform: translate3d(0,100%,0); visibility: visible; } to { transform: translate3d(0,0,0); } }
+
+/* =========================================================================
+     Animate.css-inspired Animation Utilities (prefixed with .ba-*)
+     -------------------------------------------------------------------------
+     Usage: Add .ba-bounce, .ba-flash, .ba-pulse, etc. to any .ba-animate or block
+     Accessible: All animations respect prefers-reduced-motion
+     ------------------------------------------------------------------------- */
+
+  .ba-bounce { animation: ba-bounce 1s infinite; }
+  .ba-flash { animation: ba-flash 1s infinite; }
+  .ba-pulse { animation: ba-pulse-anim 1s infinite; }
+  .ba-rubberBand { animation: ba-rubberBand 1s; }
+  .ba-shakeX { animation: ba-shakeX 1s; }
+  .ba-shakeY { animation: ba-shakeY 1s; }
+  .ba-headShake { animation: ba-headShake 1s; }
+  .ba-swing { animation: ba-swing 1s; }
+  .ba-tada { animation: ba-tada 1s; }
+  .ba-wobble { animation: ba-wobble 1s; }
+  .ba-jello { animation: ba-jello 1s; }
+  .ba-heartBeat { animation: ba-heartBeat 1.3s infinite; }
+
+  @keyframes ba-bounce {
+    0%, 20%, 53%, 80%, 100% { transform: translateY(0); }
+    40%, 43% { transform: translateY(-30px); }
+    70% { transform: translateY(-15px); }
+    90% { transform: translateY(-4px); }
+  }
+  @keyframes ba-flash {
+    0%, 100%, 50% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+  }
+  @keyframes ba-pulse-anim {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  @keyframes ba-rubberBand {
+    0% { transform: scale3d(1,1,1); }
+    30% { transform: scale3d(1.25,0.75,1); }
+    40% { transform: scale3d(0.75,1.25,1); }
+    50% { transform: scale3d(1.15,0.85,1); }
+    65% { transform: scale3d(.95,1.05,1); }
+    75% { transform: scale3d(1.05,.95,1); }
+    100% { transform: scale3d(1,1,1); }
+  }
+  @keyframes ba-shakeX {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(10px); }
+  }
+  @keyframes ba-shakeY {
+    0%, 100% { transform: translateY(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateY(-10px); }
+    20%, 40%, 60%, 80% { transform: translateY(10px); }
+  }
+  @keyframes ba-headShake {
+    0% { transform: translateX(0); }
+    6.5% { transform: translateX(-6px) rotateY(-9deg); }
+    18.5% { transform: translateX(5px) rotateY(7deg); }
+    31.5% { transform: translateX(-3px) rotateY(-5deg); }
+    43.5% { transform: translateX(2px) rotateY(3deg); }
+    50% { transform: translateX(0); }
+  }
+  @keyframes ba-swing {
+    20% { transform: rotateZ(15deg); }
+    40% { transform: rotateZ(-10deg); }
+    60% { transform: rotateZ(5deg); }
+    80% { transform: rotateZ(-5deg); }
+    100% { transform: rotateZ(0deg); }
+  }
+  @keyframes ba-tada {
+    0% { transform: scale3d(1,1,1); }
+    10%, 20% { transform: scale3d(.9,.9,.9) rotateZ(-3deg); }
+    30%, 50%, 70%, 90% { transform: scale3d(1.1,1.1,1.1) rotateZ(3deg); }
+    40%, 60%, 80% { transform: scale3d(1.1,1.1,1.1) rotateZ(-3deg); }
+    100% { transform: scale3d(1,1,1); }
+  }
+  @keyframes ba-wobble {
+    0% { transform: none; }
+    15% { transform: translateX(-25%) rotateZ(-5deg); }
+    30% { transform: translateX(20%) rotateZ(3deg); }
+    45% { transform: translateX(-15%) rotateZ(-3deg); }
+    60% { transform: translateX(10%) rotateZ(2deg); }
+    75% { transform: translateX(-5%) rotateZ(-1deg); }
+    100% { transform: none; }
+  }
+  @keyframes ba-jello {
+    0%, 100% { transform: none; }
+    11.1% { transform: skewX(-12.5deg) skewY(-12.5deg); }
+    22.2% { transform: skewX(6.25deg) skewY(6.25deg); }
+    33.3% { transform: skewX(-3.125deg) skewY(-3.125deg); }
+    44.4% { transform: skewX(1.5625deg) skewY(1.5625deg); }
+    55.5% { transform: skewX(-0.78125deg) skewY(-0.78125deg); }
+    66.6% { transform: skewX(0.390625deg) skewY(0.390625deg); }
+    77.7% { transform: skewX(-0.1953125deg) skewY(-0.1953125deg); }
+    88.8% { transform: skewX(0.09765625deg) skewY(0.09765625deg); }
+  }
+  @keyframes ba-heartBeat {
+    0% { transform: scale(1); }
+    14% { transform: scale(1.3); }
+    28% { transform: scale(1); }
+    42% { transform: scale(1.3); }
+    70% { transform: scale(1); }
+    100% { transform: scale(1); }
+  }
+
+  /* Accessibility: prefers-reduced-motion disables animation */
+  @media (prefers-reduced-motion: reduce) {
+    .ba-bounce,
+    .ba-flash,
+    .ba-pulse,
+    .ba-rubberBand,
+    .ba-shakeX,
+    .ba-shakeY,
+    .ba-headShake,
+    .ba-swing,
+    .ba-tada,
+    .ba-wobble,
+    .ba-jello,
+    .ba-heartBeat {
+      animation: none !important;
+    }
+  }
