@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 ## [Unreleased]
 - Tweak conic border colors for better visibility and contrast.
 - Add more border animation styles and customization options.
+- Modernized `animate-it.css` with CSS custom properties, accessibility, and verbose documentation.
+- Added/updated HTML demo for all animation utilities, including `.wiggle` (note: `.wiggle` is included for compatibility, but has minimal visible effect in most browsers).
+- Improved: Accessibility with `prefers-reduced-motion` support.
+- Improved: Utility classes for delay, duration, and iteration.
 
 ## [1.0.0] - 2025-06-13
 ### Added

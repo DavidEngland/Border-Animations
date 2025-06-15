@@ -4,6 +4,19 @@ A modern, lightweight WordPress plugin that adds customizable, accessible border
 
 ## Features
 
+- Modern, accessible CSS animation utilities (no vendor prefixes)
+- CSS custom properties for easy customization
+- Utility classes for delay, duration, and iteration
+- Accessibility: respects prefers-reduced-motion
+- HTML demo file for all animation classes
+- Includes `.bounce`, `.flash`, and many more
+- `.wiggle` is included for compatibility, but has minimal visible effect in most browsers
+
+## Usage
+
+- See `css/animate-it-demo.html` for a live demo and usage examples.
+- Add classes like `animated bounce` to any element.
+- Use delay/duration utilities: `animated ai-delay-2 ai-duration-3`.
 - Conic gradient, animated solid, and animated dashed border effects
 - Utility classes for easy use in HTML, blocks, or theme templates
 - Shortcode `[border_animation_demo]` for quick demos in posts/pages
