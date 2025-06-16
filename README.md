@@ -46,4 +46,4 @@ A modern, lightweight WordPress plugin that adds customizable, accessible border
 
 ---
 
-**Author:** Your Name
+**Author:** Dave England

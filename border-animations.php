@@ -10,12 +10,18 @@ License: GPLv2 or later
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-// Enqueue CSS for border animations
+// Enqueue CSS for border animations and animate-it utilities
 add_action( 'wp_enqueue_scripts', function() {
     wp_enqueue_style(
         'border-animations',
         plugin_dir_url(__FILE__) . 'css/border-animations.css',
         [],
+        '1.0.0'
+    );
+    wp_enqueue_style(
+        'border-animations-animate-it',
+        plugin_dir_url(__FILE__) . 'css/animate-it.css',
+        ['border-animations'],
         '1.0.0'
     );
 });
