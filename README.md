@@ -26,6 +26,53 @@ A modern, lightweight WordPress plugin that adds sophisticated, slogan-inspired 
 - **`ba-highlighted`** - Professional card with shimmer overlay
 - **`ba-glowing-enhanced`** - Multi-layer glow with brightness animation
 
+## ⚙️ JavaScript Typewriter Effect (v1.1.0)
+
+The typewriter animation now includes a powerful JavaScript component for true text animation:
+
+### Features
+- **Infinite Loop**: Continuously types and deletes text
+- **Configurable Speed**: Customizable typing speed per character
+- **Realistic Animation**: True character-by-character typing effect
+- **Custom Cursor**: Configurable blinking cursor
+- **Auto-Initialize**: Automatically detects and initializes typewriter elements
+
+### Usage
+```html
+<div class="ba-typewriter" 
+     data-typewriter-speed="150" 
+     data-typewriter-pause-end="1000"
+     data-typewriter-pause-start="500"
+     data-typewriter-cursor="|"
+     data-typewriter-show-cursor="true"
+     data-typewriter-loop="true">
+    Your text here will be typed infinitely!
+</div>
+```
+
+### Configuration Options
+- `data-typewriter-speed`: Milliseconds per character (default: 150)
+- `data-typewriter-pause-end`: Pause at end before deleting (default: 1000ms)
+- `data-typewriter-pause-start`: Pause before retyping (default: 500ms)
+- `data-typewriter-cursor`: Cursor character (default: "|")
+- `data-typewriter-show-cursor`: Show/hide cursor (default: true)
+- `data-typewriter-loop`: Enable infinite loop (default: true)
+
+### Manual JavaScript Control
+```javascript
+// Create instance manually
+const element = document.querySelector('.my-typewriter');
+const typewriter = new TypewriterBorderAnimation(element, {
+    speed: 100,
+    pauseEnd: 2000,
+    loop: true
+});
+
+// Control the animation
+typewriter.restart(); // Restart animation
+typewriter.destroy(); // Stop and cleanup
+```
+
 ## 🚀 Enhanced Usage
 
 ### WordPress Shortcode (Recommended)

@@ -127,18 +127,29 @@
     z-index: -1;
     backdrop-filter: blur(10px);
   }
-  /* Sparkler border: enhanced comet effect with shimmer */
+  /* Sparkler border: enhanced multiple traveling lights with depth and glow */
   .ba-sparkler::before {
     background: conic-gradient(
       from 0deg,
-      transparent 0deg 300deg,
-      var(--ba-color-accent, #ffd700) 320deg 340deg,
-      rgba(255, 215, 0, 0.8) 340deg 350deg,
-      var(--ba-accent) 350deg 360deg,
+      transparent 0deg,
+      rgba(255, 215, 0, 0.3) 30deg,
+      var(--ba-color-accent, #ffd700) 45deg,
+      rgba(255, 255, 255, 0.9) 50deg,
+      var(--ba-accent) 55deg,
+      rgba(255, 215, 0, 0.6) 60deg,
+      transparent 90deg,
+      rgba(0, 115, 230, 0.4) 180deg,
+      var(--ba-primary) 195deg,
+      rgba(0, 115, 230, 0.6) 210deg,
+      transparent 240deg,
+      rgba(172, 48, 51, 0.3) 300deg,
+      var(--ba-gradient-2) 315deg,
+      rgba(172, 48, 51, 0.5) 330deg,
       transparent 360deg
     );
     animation-name: ba-sparkler-spin-cw;
-    filter: drop-shadow(0 0 10px var(--ba-color-accent));
+    filter: drop-shadow(0 0 8px var(--ba-color-accent)) drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
+    animation-duration: 2s;
   }
   
   .ba-sparkler {
@@ -149,14 +160,22 @@
   .ba-sparkler::after {
     content: "";
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.1), transparent);
-    transform: rotate(45deg);
-    animation: ba-shimmer 3s infinite;
+    inset: calc(var(--ba-width) * -1);
+    background: conic-gradient(
+      from 180deg,
+      transparent 0deg,
+      rgba(255, 255, 255, 0.2) 60deg,
+      rgba(255, 215, 0, 0.4) 90deg,
+      transparent 120deg,
+      rgba(0, 115, 230, 0.3) 240deg,
+      rgba(172, 48, 51, 0.3) 300deg,
+      transparent 360deg
+    );
+    border-radius: inherit;
+    animation: ba-sparkler-spin-ccw 3s linear infinite;
+    filter: blur(1px);
     pointer-events: none;
+    z-index: -1;
   }
   .ba-sparkler.ba-ccw::before {
     animation-name: ba-sparkler-spin-ccw;
@@ -524,75 +543,59 @@
 
   /* ===== NEW SLOGAN-INSPIRED BORDER ANIMATIONS ===== */
   
-  /* Typewriter border - animated border that draws like text */
+  /* Typewriter border - enhanced with JavaScript-powered infinite typing animation */
   .ba-typewriter {
-    border: none;
-    background: linear-gradient(135deg, #f8f9fa, #fff);
+    border: var(--ba-width, 3px) solid var(--ba-primary);
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
     position: relative;
-    font-family: "Courier New", monospace;
-    font-weight: 600;
+    overflow: hidden;
+    font-family: 'Courier New', 'Monaco', monospace;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: calc(var(--ba-width, 3px) * 3);
+    min-height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   
   .ba-typewriter::before {
-    content: "";
+    content: '';
     position: absolute;
-    inset: 0;
-    border: var(--ba-width, 4px) solid var(--ba-accent);
-    border-radius: inherit;
-    background: transparent;
-    border-left-color: transparent;
-    border-bottom-color: transparent;
-    border-right-color: transparent;
-    animation: ba-typewriter-draw 3s steps(20, end) infinite;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 115, 230, 0.1),
+      transparent
+    );
+    animation: ba-typewriter-highlight 3s ease-in-out infinite;
+    z-index: 1;
+    pointer-events: none;
   }
   
-  .ba-typewriter::after {
-    content: "";
-    position: absolute;
-    top: -2px;
-    right: -2px;
-    width: 3px;
-    height: var(--ba-width, 4px);
-    background: var(--ba-accent);
-    animation: ba-typewriter-cursor 1s step-end infinite;
+  .ba-typewriter-active {
+    animation: ba-typewriter-pulse 0.8s ease-in-out infinite alternate;
   }
   
-  @keyframes ba-typewriter-draw {
+  @keyframes ba-typewriter-highlight {
+    0% { left: -100%; }
+    50% { left: 100%; }
+    100% { left: 100%; }
+  }
+  
+  @keyframes ba-typewriter-pulse {
     0% { 
-      border-top-color: transparent;
-      border-right-color: transparent;
-      border-bottom-color: transparent;
-      border-left-color: transparent;
-    }
-    25% { 
-      border-top-color: var(--ba-accent);
-      border-right-color: transparent;
-      border-bottom-color: transparent;
-      border-left-color: transparent;
-    }
-    50% { 
-      border-top-color: var(--ba-accent);
-      border-right-color: var(--ba-accent);
-      border-bottom-color: transparent;
-      border-left-color: transparent;
-    }
-    75% { 
-      border-top-color: var(--ba-accent);
-      border-right-color: var(--ba-accent);
-      border-bottom-color: var(--ba-accent);
-      border-left-color: transparent;
+      border-color: var(--ba-primary);
+      box-shadow: 0 0 5px rgba(0, 115, 230, 0.3);
     }
     100% { 
-      border-top-color: var(--ba-accent);
-      border-right-color: var(--ba-accent);
-      border-bottom-color: var(--ba-accent);
-      border-left-color: var(--ba-accent);
+      border-color: var(--ba-accent);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
     }
-  }
-  
-  @keyframes ba-typewriter-cursor {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
   }
   
   /* 3D border effect */
