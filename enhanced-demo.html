@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Border Animations - Slogan Style Demo</title>
+    <link rel="stylesheet" href="css/border-animations.css">
+    <style>
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .demo-item {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .demo-item h3 {
+            color: #002D5F;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .demo-item p {
+            margin-top: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .demo-content {
+            padding: 1.5rem;
+            font-weight: 600;
+            color: #002D5F;
+            font-size: 1.1rem;
+        }
+        
+        h1 {
+            color: #002D5F;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            font-size: 1.2rem;
+        }
+        
+        .usage-example {
+            background: #f8f9fa;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin: 3rem 0;
+            border-left: 4px solid #0073e6;
+        }
+        
+        .usage-example h2 {
+            color: #002D5F;
+            margin-bottom: 1rem;
+        }
+        
+        .usage-example code {
+            background: #e9ecef;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        
+        .usage-example pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+        <h1>Enhanced Border Animations</h1>
+        <p class="subtitle">Slogan-inspired border effects with professional styling</p>
+        
+        <div class="demo-grid">
+            <!-- Original Enhanced Animations -->
+            <div class="demo-item">
+                <h3>Enhanced Conic Gradient</h3>
+                <div class="ba-animate ba-conic demo-content">
+                    Gradient Border Animation
+                </div>
+                <p>Multi-color gradient with smooth color transitions and subtle 3D effect</p>
+            </div>
+            
+            <div class="demo-item">
+                <h3>Enhanced Sparkler</h3>
+                <div class="ba-animate ba-sparkler demo-content">
+                    Sparkler Comet Effect
+                </div>
+                <p>Rotating highlight with shimmer overlay and drop shadow glow</p>
+            </div>
+            
+            <div class="demo-item">
+                <h3>Enhanced Pulse</h3>
+                <div class="ba-animate ba-animated-solid demo-content">
+                    Pulsating Border
+                </div>
+                <p>Multi-layer shadow pulse with gradient background glow</p>
+            </div>
+            
+            <div class="demo-item">
+                <h3>Enhanced Dashed</h3>
+                <div class="ba-animate ba-dashed demo-content">
+                    Animated Dashed Border
+                </div>
+                <p>Color-shifting dashes with glow effects and smooth transitions</p>
+            </div>
+            
+            <!-- New Slogan-Inspired Animations -->
+            <div class="demo-item">
+                <h3>Typewriter Border</h3>
+                <div class="ba-animate ba-typewriter demo-content">
+                    Drawing Border Effect
+                </div>
+                <p>Border draws progressively like typewriter text with blinking cursor</p>
+            </div>
+            
+            <div class="demo-item">
+                <h3>3D Border Effect</h3>
+                <div class="ba-animate ba-3d demo-content">
+                    Three-Dimensional Look
+                </div>
+                <p>Layered shadow effect with perspective transform and hover animation</p>
+            </div>
+            
+            <div class="demo-item">
+                <h3>Highlighted Card</h3>
+                <div class="ba-animate ba-highlighted demo-content">
+                    Professional Highlight
+                </div>
+                <p>Elegant card with shimmer overlay and subtle perspective rotation</p>
+            </div>
+            
+            <div class="demo-item">
+                <h3>Enhanced Glowing</h3>
+                <div class="ba-animate ba-glowing-enhanced demo-content">
+                    Pulsating Glow Effect
+                </div>
+                <p>Multi-layer glow with gradient background and brightness animation</p>
+            </div>
+        </div>
+        
+        <div class="usage-example">
+            <h2>WordPress Shortcode Usage</h2>
+            <p>Use these enhanced border animations in your WordPress content:</p>
+            
+            <h3>Basic Usage:</h3>
+            <pre><code>[border_animation_demo type="conic"]Your content here[/border_animation_demo]</code></pre>
+            
+            <h3>Advanced Usage with Custom Colors:</h3>
+            <pre><code>[border_animation_demo 
+  type="highlighted" 
+  color="#002D5F" 
+  color_alt="#ac3033" 
+  color_accent="#ffd700"
+  width="3px" 
+  radius="1.5em"
+]Professional Content[/border_animation_demo]</code></pre>
+            
+            <h3>Available Animation Types:</h3>
+            <ul style="text-align: left; display: inline-block;">
+                <li><code>conic</code> - Enhanced gradient border</li>
+                <li><code>sparkler</code> - Rotating comet effect</li>
+                <li><code>animated-solid</code> - Enhanced pulsating border</li>
+                <li><code>dashed</code> - Color-shifting dashed border</li>
+                <li><code>typewriter</code> - Drawing border effect</li>
+                <li><code>3d</code> - Three-dimensional border</li>
+                <li><code>highlighted</code> - Professional card highlight</li>
+                <li><code>glowing-enhanced</code> - Multi-layer glow effect</li>
+            </ul>
+            
+            <h3>CSS Class Usage:</h3>
+            <pre><code>&lt;div class="ba-animate ba-highlighted"&gt;
+  &lt;p&gt;Your content with professional border animation&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+        </div>
+    </div>
+</body>
+</html>

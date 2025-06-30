@@ -1,37 +1,65 @@
 # Border Animations for WordPress
 
-A modern, lightweight WordPress plugin that adds customizable, accessible border animation utilities and a shortcode for use in blocks, content, and themes.
+A modern, lightweight WordPress plugin that adds sophisticated, slogan-inspired border animation utilities and shortcodes for professional WordPress sites.
 
-## Features
+## ✨ Enhanced Features (v1.5.0)
 
-- Modern, accessible CSS animation utilities (no vendor prefixes)
-- CSS custom properties for easy customization
-- Utility classes for delay, duration, and iteration
-- Accessibility: respects prefers-reduced-motion
-- HTML demo file for all animation classes
-- Includes `.bounce`, `.flash`, and many more
-- `.wiggle` is included for compatibility, but has minimal visible effect in most browsers
+- **Slogan-Inspired Animations**: Professional effects modeled after successful slogan animations
+- **Enhanced Visual Effects**: Multi-layer shadows, gradient backgrounds, shimmer overlays
+- **Modern CSS**: Uses CSS custom properties, backdrop-filter, perspective transforms
+- **8 Animation Types**: From subtle highlights to dramatic 3D effects
+- **Professional Styling**: Elegant color schemes inspired by real estate branding
+- **Accessibility Focus**: Respects prefers-reduced-motion and includes focus states
+- **WordPress Integration**: Enhanced shortcode with security validation
 
-## Usage
+## 🎨 Animation Types
 
-- See `css/animate-it-demo.html` for a live demo and usage examples.
-- Add classes like `animated bounce` to any element.
-- Use delay/duration utilities: `animated ai-delay-2 ai-duration-3`.
-- Conic gradient, animated solid, and animated dashed border effects
-- Utility classes for easy use in HTML, blocks, or theme templates
-- Shortcode `[border_animation_demo]` for quick demos in posts/pages
-- Modern CSS (conic-gradient, mask, keyframes) with fallbacks
-- Accessible and responsive
+### Enhanced Classic Animations
+- **`ba-conic`** - Multi-color gradient border with smooth color transitions
+- **`ba-sparkler`** - Rotating comet effect with shimmer overlay and glow
+- **`ba-animated-solid`** - Multi-layer pulsating border with gradient background
+- **`ba-dashed`** - Color-shifting dashed border with glow effects
 
-## Usage
+### New Slogan-Inspired Animations
+- **`ba-typewriter`** - Border draws progressively like typewriter text
+- **`ba-3d`** - Layered shadow effect with perspective transform
+- **`ba-highlighted`** - Professional card with shimmer overlay
+- **`ba-glowing-enhanced`** - Multi-layer glow with brightness animation
 
-1. **Install & Activate:**
-   - Upload to your `wp-content/plugins` directory and activate in WP admin.
-2. **Add to Content:**
-   - Use the shortcode: `[border_animation_demo type="conic"]Your content[/border_animation_demo]`
-   - Or add classes to your HTML: `<div class="ba-animate ba-conic">Content</div>`
-3. **Customize:**
-   - Use `type` (conic, animated-solid, dashed), `color`, `width`, `radius` attributes in the shortcode.
+## 🚀 Enhanced Usage
+
+### WordPress Shortcode (Recommended)
+```php
+// Basic usage
+[border_animation_demo type="highlighted"]Your content here[/border_animation_demo]
+
+// Advanced usage with custom styling
+[border_animation_demo 
+  type="3d" 
+  color="#002D5F" 
+  color_alt="#ac3033" 
+  color_accent="#ffd700"
+  width="3px" 
+  radius="1.5em"
+]Professional Content[/border_animation_demo]
+```
+
+### Direct CSS Classes
+```html
+<div class="ba-animate ba-typewriter">Typewriter border effect</div>
+<div class="ba-animate ba-glowing-enhanced">Enhanced glowing border</div>
+```
+
+### Custom Properties for Theming
+```css
+.my-custom-border {
+  --ba-primary: #002D5F;
+  --ba-accent: #0073e6;
+  --ba-color-accent: #ffd700;
+  --ba-radius: 1.5rem;
+  --ba-width: 3px;
+}
+```
 
 ## Development
 

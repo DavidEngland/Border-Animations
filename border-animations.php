@@ -2,7 +2,7 @@
 /*
 Plugin Name: Border Animations
 Description: Adds modern, customizable border animation utilities and shortcodes for use in WordPress content, blocks, and themes.
-Version: 1.0.0
+Version: 1.1.0
 Author: David E. England, Ph.D.
 Author URI: https://davidengland.wordpress.com/
 License: GPLv2 or later
@@ -26,19 +26,44 @@ add_action( 'wp_enqueue_scripts', function() {
     );
 });
 
-// Optional: Add a shortcode for demo usage
+// Enhanced shortcode for demo usage with new slogan-inspired animations
 add_shortcode('border_animation_demo', function($atts, $content = null) {
     $atts = shortcode_atts([
         'type' => 'conic',
         'color' => '#0073e6',
+        'color_alt' => '#ac3033',
+        'color_accent' => '#ffd700',
         'width' => '4px',
         'radius' => '1em',
+        'class' => '',
     ], $atts);
+
+    // Build custom CSS variables for enhanced styling
     $style = sprintf(
-        'border-width:%s;border-radius:%s;',
+        '--ba-color:%s;--ba-color-alt:%s;--ba-color-accent:%s;--ba-width:%s;--ba-radius:%s;',
+        esc_attr($atts['color']),
+        esc_attr($atts['color_alt']),
+        esc_attr($atts['color_accent']),
         esc_attr($atts['width']),
         esc_attr($atts['radius'])
     );
-    $class = 'ba-animate ba-' . esc_attr($atts['type']);
-    return '<div class="' . $class . '" style="' . $style . '">' . do_shortcode($content) . '</div>';
+
+    // Validate animation type (security)
+    $allowed_types = [
+        'conic', 'sparkler', 'animated-solid', 'dashed',
+        'typewriter', '3d', 'highlighted', 'glowing-enhanced'
+    ];
+    $type = in_array($atts['type'], $allowed_types) ? $atts['type'] : 'conic';
+
+    $class = 'ba-animate ba-' . esc_attr($type);
+    if (!empty($atts['class'])) {
+        $class .= ' ' . esc_attr($atts['class']);
+    }
+
+    return sprintf(
+        '<div class="%s" style="%s">%s</div>',
+        esc_attr($class),
+        esc_attr($style),
+        do_shortcode($content)
+    );
 });
