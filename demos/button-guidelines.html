@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Button Animations - Border Animations</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .header p {
+            color: #4a5568;
+            font-size: 1.2em;
+        }
+        
+        .demo-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .button-demo {
+            text-align: center;
+            padding: 25px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            background: #f8f9fa;
+        }
+        
+        .demo-button {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 15px 0;
+            position: relative;
+            background: white;
+            color: #2d3748;
+        }
+        
+        /* Professional Button Animations */
+        .btn-subtle-pulse {
+            border: 2px solid #4299e1;
+            color: #4299e1;
+            animation: subtle-pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes subtle-pulse {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(66, 153, 225, 0.4);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 0 8px rgba(66, 153, 225, 0);
+                transform: scale(1.02);
+            }
+        }
+        
+        .btn-glow-hover {
+            border: 2px solid #48bb78;
+            color: #48bb78;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-glow-hover:hover {
+            box-shadow: 0 0 20px rgba(72, 187, 120, 0.6);
+            transform: translateY(-2px);
+        }
+        
+        .btn-color-shift {
+            border: 2px solid #ed8936;
+            color: #ed8936;
+            animation: color-shift 4s ease-in-out infinite;
+        }
+        
+        @keyframes color-shift {
+            0%, 100% { 
+                border-color: #ed8936;
+                color: #ed8936;
+            }
+            50% { 
+                border-color: #f56565;
+                color: #f56565;
+            }
+        }
+        
+        .btn-breathing {
+            border: 2px solid #9f7aea;
+            color: #9f7aea;
+            animation: breathing 3s ease-in-out infinite;
+        }
+        
+        @keyframes breathing {
+            0%, 100% { 
+                border-width: 2px;
+                opacity: 1;
+            }
+            50% { 
+                border-width: 3px;
+                opacity: 0.8;
+            }
+        }
+        
+        /* Bad Examples */
+        .btn-spinning {
+            border: 3px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                       linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4) border-box;
+            animation: spin-border 2s linear infinite;
+        }
+        
+        @keyframes spin-border {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .btn-crazy-rainbow {
+            border: 3px solid #ff0000;
+            animation: crazy-colors 0.5s ease-in-out infinite;
+        }
+        
+        @keyframes crazy-colors {
+            0% { border-color: #ff0000; color: #ff0000; }
+            20% { border-color: #ff8000; color: #ff8000; }
+            40% { border-color: #ffff00; color: #ffff00; }
+            60% { border-color: #00ff00; color: #00ff00; }
+            80% { border-color: #0000ff; color: #0000ff; }
+            100% { border-color: #8000ff; color: #8000ff; }
+        }
+        
+        .rating {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+        
+        .rating.good { color: #38a169; }
+        .rating.bad { color: #e53e3e; }
+        
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 13px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .guidelines {
+            background: #edf2f7;
+            border-left: 4px solid #4299e1;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .do-dont {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .do, .dont {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .do {
+            background: #f0fff4;
+            border-left: 4px solid #38a169;
+        }
+        
+        .dont {
+            background: #fed7d7;
+            border-left: 4px solid #e53e3e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Professional Button Animations</h1>
+            <p>Learn what works (and what doesn't) for button border animations</p>
+        </div>
+        
+        <!-- Professional Examples -->
+        <div class="demo-section">
+            <h2>✅ Professional & Effective Button Animations</h2>
+            <p>These animations enhance user experience without being distracting:</p>
+            
+            <div class="button-grid">
+                <div class="button-demo">
+                    <h3>Subtle Pulse</h3>
+                    <a href="#" class="demo-button btn-subtle-pulse">Get Started Today</a>
+                    <div class="rating good">⭐⭐⭐⭐⭐ Excellent for CTAs</div>
+                    <p>Gentle pulsing effect that draws attention without being annoying.</p>
+                    <div class="code-example">
+/* WordPress Block Settings */
+Animation: Pulse
+Speed: Slow (3s)
+Colors: Brand blue
+Direction: Gentle</div>
+                </div>
+                
+                <div class="button-demo">
+                    <h3>Hover Glow</h3>
+                    <a href="#" class="demo-button btn-glow-hover">Learn More</a>
+                    <div class="rating good">⭐⭐⭐⭐⭐ Perfect for interaction</div>
+                    <p>Responds to user interaction with a professional glow effect.</p>
+                    <div class="code-example">
+/* CSS Implementation */
+.button:hover {
+  box-shadow: 0 0 20px rgba(color, 0.6);
+  transform: translateY(-2px);
+}</div>
+                </div>
+                
+                <div class="button-demo">
+                    <h3>Color Shift</h3>
+                    <a href="#" class="demo-button btn-color-shift">Shop Now</a>
+                    <div class="rating good">⭐⭐⭐⭐ Good for e-commerce</div>
+                    <p>Subtle color transitions between brand colors.</p>
+                    <div class="code-example">
+/* WordPress Block Settings */
+Animation: Custom
+Primary: Orange
+Secondary: Red
+Speed: Slow (4s)</div>
+                </div>
+                
+                <div class="button-demo">
+                    <h3>Breathing Effect</h3>
+                    <a href="#" class="demo-button btn-breathing">Contact Us</a>
+                    <div class="rating good">⭐⭐⭐⭐ Subtle and professional</div>
+                    <p>Mimics natural breathing rhythm for calming effect.</p>
+                    <div class="code-example">
+/* Border Animation */
+border-width: 2px → 3px
+opacity: 1 → 0.8
+duration: 3s</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bad Examples -->
+        <div class="demo-section">
+            <h2>❌ Avoid These Button Animations</h2>
+            <p>These animations are distracting and unprofessional for buttons:</p>
+            
+            <div class="button-grid">
+                <div class="button-demo">
+                    <h3>Spinning Rectangle</h3>
+                    <a href="#" class="demo-button btn-spinning">Don't Use This</a>
+                    <div class="rating bad">⭐ Distracting and amateur</div>
+                    <p><strong>Why it's bad:</strong> Constantly spinning rectangles are distracting and give a cheap, amateur appearance.</p>
+                </div>
+                
+                <div class="button-demo">
+                    <h3>Crazy Rainbow</h3>
+                    <a href="#" class="demo-button btn-crazy-rainbow">Seizure Warning!</a>
+                    <div class="rating bad">⭐ Accessibility nightmare</div>
+                    <p><strong>Why it's bad:</strong> Fast color changes can trigger seizures and are completely unprofessional.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Guidelines -->
+        <div class="demo-section">
+            <h2>📋 Button Animation Guidelines</h2>
+            
+            <div class="do-dont">
+                <div class="do">
+                    <h3>✅ DO</h3>
+                    <ul>
+                        <li>Use your brand colors</li>
+                        <li>Keep animations slow (2-4 seconds)</li>
+                        <li>Make effects subtle and gentle</li>
+                        <li>Test on different backgrounds</li>
+                        <li>Consider hover states</li>
+                        <li>Think about accessibility</li>
+                        <li>Use consistent timing</li>
+                        <li>Test on mobile devices</li>
+                    </ul>
+                </div>
+                
+                <div class="dont">
+                    <h3>❌ DON'T</h3>
+                    <ul>
+                        <li>Use spinning/rotating effects</li>
+                        <li>Make animations too fast (&lt;1s)</li>
+                        <li>Use clashing colors</li>
+                        <li>Overwhelm with movement</li>
+                        <li>Ignore motion sensitivity</li>
+                        <li>Use more than one animation per button</li>
+                        <li>Make effects too flashy</li>
+                        <li>Forget about performance</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="guidelines">
+                <h3>💡 WordPress Block Editor Best Practices</h3>
+                <p><strong>For Call-to-Action Buttons:</strong></p>
+                <ul>
+                    <li>Choose "Pulse" animation type</li>
+                    <li>Set speed to "Slow" or "Medium"</li>
+                    <li>Use your primary brand color</li>
+                    <li>Add sufficient border radius (8-25px)</li>
+                    <li>Set padding to "Large" for button appearance</li>
+                </ul>
+                
+                <p><strong>Color Recommendations:</strong></p>
+                <ul>
+                    <li><strong>Primary CTA:</strong> Blue tones (#4299e1, #3182ce)</li>
+                    <li><strong>Secondary Actions:</strong> Green tones (#48bb78, #38a169)</li>
+                    <li><strong>Warning/Urgent:</strong> Orange tones (#ed8936, #dd6b20)</li>
+                    <li><strong>Avoid:</strong> Red (aggressive), Rainbow (unprofessional)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- WordPress Implementation -->
+        <div class="demo-section">
+            <h2>🧩 WordPress Block Editor Setup</h2>
+            
+            <div style="background: #f7fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3>Step-by-Step: Professional Button</h3>
+                <ol>
+                    <li>Add "Border Animation" block</li>
+                    <li>Type your button text (e.g., "Get Started Today")</li>
+                    <li>In Inspector Panel:
+                        <ul>
+                            <li><strong>Animation Type:</strong> Pulse</li>
+                            <li><strong>Primary Color:</strong> Your brand blue</li>
+                            <li><strong>Secondary Color:</strong> Slightly darker blue</li>
+                            <li><strong>Speed:</strong> Slow (3-4 seconds)</li>
+                            <li><strong>Border Width:</strong> 2-3px</li>
+                            <li><strong>Border Radius:</strong> 8-15px</li>
+                            <li><strong>Padding:</strong> Large</li>
+                            <li><strong>Text Alignment:</strong> Center</li>
+                        </ul>
+                    </li>
+                    <li>Preview and adjust as needed</li>
+                    <li>Publish and test on mobile</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Final Tips -->
+        <div class="demo-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <h2>🎯 Key Takeaways</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div>
+                    <h3>For Buttons</h3>
+                    <p>Less is more. Subtle pulse or glow effects work best. Avoid anything that spins, rotates, or flashes rapidly.</p>
+                </div>
+                <div>
+                    <h3>For Content Blocks</h3>
+                    <p>More creative animations can work for content highlights, but still keep them tasteful and on-brand.</p>
+                </div>
+                <div>
+                    <h3>Test Everything</h3>
+                    <p>Always test your animations on different devices, backgrounds, and with real content before going live.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

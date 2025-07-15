@@ -1,0 +1,40 @@
+/**
+ * Animation Builder Block - Frontend Styles
+ */
+
+.wp-block-border-animations-animation-builder {
+    margin: 20px 0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.wp-block-border-animations-animation-builder .border-animation-builder {
+    width: 100%;
+}
+
+/* Theme variations */
+.wp-block-border-animations-animation-builder.theme-dark {
+    background: #2d3748;
+    color: #e2e8f0;
+}
+
+.wp-block-border-animations-animation-builder.theme-light {
+    background: #f7fafc;
+    color: #2d3748;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .wp-block-border-animations-animation-builder {
+        margin: 10px 0;
+        border-radius: 4px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .wp-block-border-animations-animation-builder {
+        display: none;
+    }
+}

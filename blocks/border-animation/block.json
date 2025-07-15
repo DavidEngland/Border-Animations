@@ -1,0 +1,73 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "border-animations/border-animation",
+  "version": "2.0.0",
+  "title": "Border Animation",
+  "category": "design",
+  "icon": "admin-appearance",
+  "description": "Add animated borders to any content with live preview and customization options.",
+  "keywords": ["border", "animation", "effect", "design"],
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "spacing": {
+      "padding": true,
+      "margin": true
+    },
+    "color": {
+      "background": true,
+      "text": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true
+    }
+  },
+  "attributes": {
+    "animationType": {
+      "type": "string",
+      "default": "conic"
+    },
+    "primaryColor": {
+      "type": "string",
+      "default": "#0073e6"
+    },
+    "secondaryColor": {
+      "type": "string",
+      "default": "#ac3033"
+    },
+    "borderWidth": {
+      "type": "string",
+      "default": "4px"
+    },
+    "borderRadius": {
+      "type": "string",
+      "default": "1em"
+    },
+    "animationSpeed": {
+      "type": "string",
+      "default": "normal"
+    },
+    "animationDirection": {
+      "type": "string",
+      "default": "clockwise"
+    },
+    "content": {
+      "type": "string",
+      "default": "Your animated content here..."
+    },
+    "padding": {
+      "type": "string",
+      "default": "20px"
+    },
+    "textAlign": {
+      "type": "string",
+      "default": "center"
+    }
+  },
+  "textdomain": "border-animations-enhanced",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css"
+}

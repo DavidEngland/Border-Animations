@@ -1,0 +1,45 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "border-animations/animation-builder",
+  "version": "2.0.0",
+  "title": "Border Animation Builder",
+  "category": "design",
+  "icon": "admin-tools",
+  "description": "Interactive border animation builder with live preview and code generation.",
+  "keywords": ["border", "animation", "builder", "tool", "generator"],
+  "supports": {
+    "html": false,
+    "align": ["wide", "full"],
+    "spacing": {
+      "padding": true,
+      "margin": true
+    }
+  },
+  "attributes": {
+    "showPreview": {
+      "type": "boolean",
+      "default": true
+    },
+    "showCode": {
+      "type": "boolean",
+      "default": true
+    },
+    "showPresets": {
+      "type": "boolean",
+      "default": true
+    },
+    "showAdvanced": {
+      "type": "boolean",
+      "default": false
+    },
+    "theme": {
+      "type": "string",
+      "default": "default"
+    }
+  },
+  "textdomain": "border-animations-enhanced",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./editor.css",
+  "style": "file:./style.css"
+}

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Border Animations - Quick Start Checklist</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .checklist-section {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            transition: transform 0.2s ease;
+        }
+        
+        .checklist-item:hover {
+            transform: translateX(5px);
+        }
+        
+        .checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #28a745;
+            border-radius: 4px;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            background: white;
+        }
+        
+        .checkbox.checked {
+            background: #28a745;
+            color: white;
+        }
+        
+        .item-content {
+            flex: 1;
+        }
+        
+        .item-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .item-desc {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .time-estimate {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .success-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 25px;
+            height: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .progress-fill {
+            background: linear-gradient(135deg, #28a745, #20c997);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .quick-link {
+            background: #667eea;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            transition: transform 0.2s ease;
+        }
+        
+        .quick-link:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Border Animations - Quick Start Checklist</h1>
+        
+        <div style="text-align: center; margin-bottom: 30px;">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <span id="progressText">0 of 12 tasks completed</span>
+        </div>
+        
+        <div class="checklist-section">
+            <h2>📦 Installation & Setup</h2>
+            
+            <div class="checklist-item" data-step="1">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Download Plugin Files</div>
+                    <div class="item-desc">Get the latest version from GitHub or WordPress.org</div>
+                </div>
+                <div class="time-estimate">2 min</div>
+            </div>
+            
+            <div class="checklist-item" data-step="2">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Upload to WordPress</div>
+                    <div class="item-desc">Upload to /wp-content/plugins/border-animations/</div>
+                </div>
+                <div class="time-estimate">1 min</div>
+            </div>
+            
+            <div class="checklist-item" data-step="3">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Activate Plugin</div>
+                    <div class="item-desc">Go to WordPress Admin → Plugins → Activate</div>
+                </div>
+                <div class="time-estimate">30 sec</div>
+            </div>
+        </div>
+        
+        <div class="checklist-section">
+            <h2>🧩 First Block Creation</h2>
+            
+            <div class="checklist-item" data-step="4">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Open Block Editor</div>
+                    <div class="item-desc">Edit any post or page with Gutenberg editor</div>
+                </div>
+                <div class="time-estimate">30 sec</div>
+            </div>
+            
+            <div class="checklist-item" data-step="5">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Add Border Animation Block</div>
+                    <div class="item-desc">Click '+' button and search for "Border Animation"</div>
+                </div>
+                <div class="time-estimate">30 sec</div>
+            </div>
+            
+            <div class="checklist-item" data-step="6">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Add Your Content</div>
+                    <div class="item-desc">Type directly in the block - try "Get Started Today!"</div>
+                </div>
+                <div class="time-estimate">1 min</div>
+            </div>
+            
+            <div class="checklist-item" data-step="7">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Customize Animation</div>
+                    <div class="item-desc">Use inspector panel to choose animation type and colors</div>
+                </div>
+                <div class="time-estimate">2 min</div>
+            </div>
+            
+            <div class="checklist-item" data-step="8">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Preview Your Animation</div>
+                    <div class="item-desc">See live preview in the editor and test different settings</div>
+                </div>
+                <div class="time-estimate">1 min</div>
+            </div>
+        </div>
+        
+        <div class="checklist-section">
+            <h2>🎨 Explore Features</h2>
+            
+            <div class="checklist-item" data-step="9">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Try Different Animation Types</div>
+                    <div class="item-desc">Test Rainbow, Pulse, Electric, Rotate, Neon, and Snake animations</div>
+                </div>
+                <div class="time-estimate">3 min</div>
+            </div>
+            
+            <div class="checklist-item" data-step="10">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Test Animation Builder Block</div>
+                    <div class="item-desc">Add the Animation Builder block for advanced features</div>
+                </div>
+                <div class="time-estimate">2 min</div>
+            </div>
+            
+            <div class="checklist-item" data-step="11">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Publish and Test Frontend</div>
+                    <div class="item-desc">Publish your page and view the animations on the live site</div>
+                </div>
+                <div class="time-estimate">1 min</div>
+            </div>
+            
+            <div class="checklist-item" data-step="12">
+                <div class="checkbox" onclick="toggleCheck(this)">✓</div>
+                <div class="item-content">
+                    <div class="item-title">Test Mobile Responsiveness</div>
+                    <div class="item-desc">Check animations on mobile devices and tablets</div>
+                </div>
+                <div class="time-estimate">2 min</div>
+            </div>
+        </div>
+        
+        <div class="success-message" id="successMessage">
+            <h3>🎉 Congratulations!</h3>
+            <p>You've successfully set up Border Animations and created your first animated content! You're now ready to create engaging, eye-catching content for your WordPress site.</p>
+        </div>
+        
+        <div class="quick-links">
+            <a href="USAGE-GUIDE.md" class="quick-link">
+                <strong>📖 Full Usage Guide</strong><br>
+                <small>Complete documentation</small>
+            </a>
+            <a href="demos/" class="quick-link">
+                <strong>🎭 Live Demos</strong><br>
+                <small>See examples in action</small>
+            </a>
+            <a href="SHOWCASES.html" class="quick-link">
+                <strong>💡 Use Cases</strong><br>
+                <small>Inspiration & ideas</small>
+            </a>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px; padding: 20px; background: #e3f2fd; border-radius: 8px;">
+            <h4>🔥 Pro Tips for Success</h4>
+            <ul style="text-align: left; max-width: 500px; margin: 0 auto;">
+                <li><strong>Start Simple:</strong> Begin with one animation type and gradually explore others</li>
+                <li><strong>Brand Colors:</strong> Use your brand colors for consistent visual identity</li>
+                <li><strong>Less is More:</strong> Don't overuse animations - 2-3 per page maximum</li>
+                <li><strong>Test Performance:</strong> Always check page speed after adding animations</li>
+                <li><strong>Mobile First:</strong> Test on mobile devices to ensure good user experience</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        let completedTasks = 0;
+        const totalTasks = 12;
+        
+        function toggleCheck(checkbox) {
+            const isChecked = checkbox.classList.contains('checked');
+            
+            if (isChecked) {
+                checkbox.classList.remove('checked');
+                completedTasks--;
+            } else {
+                checkbox.classList.add('checked');
+                completedTasks++;
+            }
+            
+            updateProgress();
+            
+            if (completedTasks === totalTasks) {
+                document.getElementById('successMessage').style.display = 'block';
+            } else {
+                document.getElementById('successMessage').style.display = 'none';
+            }
+        }
+        
+        function updateProgress() {
+            const percentage = (completedTasks / totalTasks) * 100;
+            document.getElementById('progressBar').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = 
+                `${completedTasks} of ${totalTasks} tasks completed`;
+        }
+        
+        // Initialize progress
+        updateProgress();
+    </script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+/**
+ * Animation Builder Block - Editor Styles
+ */
+
+.wp-block-border-animations-animation-builder {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.wp-block-border-animations-animation-builder .border-animation-builder-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.wp-block-border-animations-animation-builder .border-animation-builder-header h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.5em;
+    font-weight: 300;
+}
+
+.wp-block-border-animations-animation-builder .border-animation-builder-header p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 0.95em;
+}
+
+.wp-block-border-animations-animation-builder .builder-placeholder {
+    padding: 40px;
+    text-align: center;
+    color: #666;
+    background: #f8f9fa;
+}
+
+.wp-block-border-animations-animation-builder .builder-placeholder .placeholder-icon {
+    font-size: 3em;
+    margin-bottom: 16px;
+}
+
+.wp-block-border-animations-animation-builder .builder-placeholder p {
+    margin: 0;
+    font-style: italic;
+}
+
+/* Theme variations */
+.wp-block-border-animations-animation-builder.theme-dark {
+    background: #2d3748;
+    border-color: #4a5568;
+}
+
+.wp-block-border-animations-animation-builder.theme-dark .builder-placeholder {
+    background: #1a202c;
+    color: #e2e8f0;
+}
+
+.wp-block-border-animations-animation-builder.theme-light {
+    background: #f7fafc;
+    border-color: #e2e8f0;
+}
+
+/* Block toolbar styling */
+.wp-block-border-animations-animation-builder .block-editor-block-toolbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+/* Inspector controls */
+.wp-block-border-animations-animation-builder .components-toggle-control {
+    margin-bottom: 16px;
+}
+
+.wp-block-border-animations-animation-builder .components-toggle-control .components-base-control__help {
+    margin-top: 4px;
+    font-size: 12px;
+    color: #757575;
+}

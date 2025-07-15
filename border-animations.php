@@ -1,8 +1,8 @@
 <?php
 /*
 Plugin Name: Border Animations
-Description: Adds modern, customizable border animation utilities and shortcodes for use in WordPress content, blocks, and themes.
-Version: 1.1.0
+Description: Adds modern, customizable border animation utilities and shortcodes for use in WordPress content, blocks, and themes. Now featuring advanced particle effects inspired by real-world motion physics.
+Version: 2.0.0
 Author: David E. England, Ph.D.
 Author URI: https://davidengland.wordpress.com/
 License: GPLv2 or later
@@ -16,13 +16,13 @@ add_action( 'wp_enqueue_scripts', function() {
         'border-animations',
         plugin_dir_url(__FILE__) . 'css/border-animations.css',
         [],
-        '1.1.0'
+        '2.0.0'
     );
     wp_enqueue_style(
         'border-animations-animate-it',
         plugin_dir_url(__FILE__) . 'css/animate-it.css',
         ['border-animations'],
-        '1.1.0'
+        '2.0.0'
     );
     
     // Enqueue typewriter animation JavaScript
@@ -30,7 +30,7 @@ add_action( 'wp_enqueue_scripts', function() {
         'border-animations-typewriter',
         plugin_dir_url(__FILE__) . 'js/typewriter-animation.js',
         [],
-        '1.1.0',
+        '2.0.0',
         true
     );
 });

@@ -1,0 +1,103 @@
+/**
+ * Border Animation Block - Frontend Styles
+ * 
+ * Styles that appear on the frontend
+ */
+
+.wp-block-border-animations-border-animation {
+    position: relative;
+    display: block;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Ensure proper z-index stacking */
+.wp-block-border-animations-border-animation > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Base animation classes - will be enhanced by inline CSS */
+.wp-block-border-animations-border-animation.ba-conic,
+.wp-block-border-animations-border-animation.ba-sparkler,
+.wp-block-border-animations-border-animation.ba-neon,
+.wp-block-border-animations-border-animation.ba-gradient,
+.wp-block-border-animations-border-animation.ba-dashed,
+.wp-block-border-animations-border-animation.ba-wave {
+    position: relative;
+}
+
+/* Accessibility - respect user preferences for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .wp-block-border-animations-border-animation *,
+    .wp-block-border-animations-border-animation *::before,
+    .wp-block-border-animations-border-animation *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .wp-block-border-animations-border-animation {
+        border: 2px solid;
+        border-color: currentColor;
+    }
+    
+    .wp-block-border-animations-border-animation::before {
+        display: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .wp-block-border-animations-border-animation::before {
+        display: none;
+    }
+    
+    .wp-block-border-animations-border-animation {
+        border: 1px solid #000;
+        animation: none !important;
+    }
+}
+
+/* Fallback for older browsers */
+.wp-block-border-animations-border-animation {
+    border: 2px solid #0073e6;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* Modern browser enhancements */
+@supports (background: conic-gradient(#000, #fff)) {
+    .wp-block-border-animations-border-animation.ba-conic {
+        border: none;
+    }
+}
+
+@supports (mask: linear-gradient(#000, #000)) {
+    .wp-block-border-animations-border-animation.ba-sparkler {
+        border: none;
+    }
+}
+
+@supports (filter: drop-shadow(0 0 10px #000)) {
+    .wp-block-border-animations-border-animation.ba-neon {
+        border: none;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .wp-block-border-animations-border-animation {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wp-block-border-animations-border-animation {
+        padding: 10px;
+        font-size: 14px;
+    }
+}

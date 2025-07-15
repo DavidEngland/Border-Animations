@@ -1,0 +1,123 @@
+/**
+ * Border Animation Block - Editor Styles
+ * 
+ * Styles that only appear in the block editor
+ */
+
+.wp-block-border-animations-border-animation {
+    min-height: 60px;
+    min-width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.wp-block-border-animations-border-animation .rich-text {
+    width: 100%;
+    min-height: 40px;
+}
+
+.wp-block-border-animations-border-animation .rich-text:empty::before {
+    content: attr(placeholder);
+    color: #8e8e96;
+    font-style: italic;
+}
+
+/* Editor preview container */
+.wp-block-border-animations-border-animation {
+    background: 
+        linear-gradient(45deg, #f8f9fa 25%, transparent 25%),
+        linear-gradient(-45deg, #f8f9fa 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #f8f9fa 75%),
+        linear-gradient(-45deg, transparent 75%, #f8f9fa 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+/* Block toolbar enhancements */
+.wp-block-border-animations-border-animation .block-editor-block-toolbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+/* Inspector controls styling */
+.wp-block-border-animations-border-animation .components-panel__body {
+    border: none;
+}
+
+.wp-block-border-animations-border-animation .components-panel__body-title {
+    font-weight: 600;
+    color: #1e1e1e;
+}
+
+/* Color picker enhancements */
+.wp-block-border-animations-border-animation .components-color-palette {
+    padding: 0;
+}
+
+.wp-block-border-animations-border-animation .components-color-palette__item {
+    margin: 2px;
+    border-radius: 4px;
+}
+
+/* Select control styling */
+.wp-block-border-animations-border-animation .components-select-control__input {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.wp-block-border-animations-border-animation .components-select-control__input:focus {
+    border-color: #007cba;
+    box-shadow: 0 0 0 1px #007cba;
+}
+
+/* Text control styling */
+.wp-block-border-animations-border-animation .components-text-control__input {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.wp-block-border-animations-border-animation .components-text-control__input:focus {
+    border-color: #007cba;
+    box-shadow: 0 0 0 1px #007cba;
+}
+
+/* Help text styling */
+.wp-block-border-animations-border-animation .components-base-control__help {
+    color: #757575;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* Block validation message */
+.wp-block-border-animations-border-animation .block-editor-warning {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: 4px;
+    padding: 12px;
+    margin: 12px 0;
+}
+
+/* Animation preview indicator */
+.wp-block-border-animations-border-animation::after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 8px;
+    height: 8px;
+    background: #00d084;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 0.3; }
+}

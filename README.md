@@ -1,124 +1,142 @@
 # Border Animations for WordPress
 
-A modern, lightweight WordPress plugin that adds sophisticated, slogan-inspired border animation utilities and shortcodes for professional WordPress sites.
+## 🎉 Version 2.0.0 - Advanced Particle Effects & Physics-Based Motion
 
-## ✨ Enhanced Features (v1.5.0)
+A cutting-edge WordPress plugin for creating beautiful CSS border animations with realistic particle effects inspired by real-world motion physics. Features 11 distinct animation types including orbital mechanics, transportation simulations, and amusement park rides.
 
-- **Slogan-Inspired Animations**: Professional effects modeled after successful slogan animations
-- **Enhanced Visual Effects**: Multi-layer shadows, gradient backgrounds, shimmer overlays
-- **Modern CSS**: Uses CSS custom properties, backdrop-filter, perspective transforms
-- **8 Animation Types**: From subtle highlights to dramatic 3D effects
-- **Professional Styling**: Elegant color schemes inspired by real estate branding
-- **Accessibility Focus**: Respects prefers-reduced-motion and includes focus states
-- **WordPress Integration**: Enhanced shortcode with security validation
+### 🚀 What's New in v2.0.0
 
-## 🎨 Animation Types
+- **11 Advanced Particle Effects** with physics-based motion
+- **Real-World Motion Simulation** including planetary orbits, burning fuse, transportation
+- **Amusement Park Effects** with ferris wheel and merry-go-round animations
+- **Circular Border Support** for enhanced realism on rotating effects
+- **WordPress Gutenberg Integration** with full block editor support
+- **Professional Animation Quality** suitable for modern web design
+- **Hardware-Accelerated Animations** for smooth 60fps performance
 
-### Enhanced Classic Animations
-- **`ba-conic`** - Multi-color gradient border with smooth color transitions
-- **`ba-sparkler`** - Rotating comet effect with shimmer overlay and glow
-- **`ba-animated-solid`** - Multi-layer pulsating border with gradient background
-- **`ba-dashed`** - Color-shifting dashed border with glow effects
+## Particle Effects Collection
 
-### New Slogan-Inspired Animations
-- **`ba-typewriter`** - Border draws progressively like typewriter text
-- **`ba-3d`** - Layered shadow effect with perspective transform
-- **`ba-highlighted`** - Professional card with shimmer overlay
-- **`ba-glowing-enhanced`** - Multi-layer glow with brightness animation
+### 🌟 Space & Celestial
 
-## ⚙️ JavaScript Typewriter Effect (v1.1.0)
+- **Planetary Orbit**: Realistic orbital mechanics with elliptical paths and gravitational physics
+- **Comet Tail**: Streaking particles with trailing effects and speed variations
+- **Meteor Shower**: Multiple particles cascading with realistic trajectories
 
-The typewriter animation now includes a powerful JavaScript component for true text animation:
+### 🔥 Fire & Energy
 
-### Features
-- **Infinite Loop**: Continuously types and deletes text
-- **Configurable Speed**: Customizable typing speed per character
-- **Realistic Animation**: True character-by-character typing effect
-- **Custom Cursor**: Configurable blinking cursor
-- **Auto-Initialize**: Automatically detects and initializes typewriter elements
+- **Burning Fuse**: Crackling sparks traveling along the border perimeter
+- **Fireworks**: Explosive bursts with colorful particle dispersal
+- **Lightning**: Electric energy bolts with branching effects
 
-### Usage
-```html
-<div class="ba-typewriter" 
-     data-typewriter-speed="150" 
-     data-typewriter-pause-end="1000"
-     data-typewriter-pause-start="500"
-     data-typewriter-cursor="|"
-     data-typewriter-show-cursor="true"
-     data-typewriter-loop="true">
-    Your text here will be typed infinitely!
-</div>
+### 🚗 Transportation
+
+- **Highway Traffic**: Vehicles moving at different speeds with realistic motion
+- **Race Track**: High-speed racing with velocity-based particle trails
+- **Train Journey**: Steady locomotive motion with passenger car effects
+
+### 🎠 Amusement Park
+
+- **Ferris Wheel**: Circular motion with passenger cars (circular borders)
+- **Merry-go-Round**: Carousel horses with scaling effects (circular borders)
+
+## Features
+
+### Advanced Animation System
+
+- **Physics-Based Motion**: Realistic particle behavior following natural laws
+- **Circular Border Support**: Special handling for ferris wheel and merry-go-round effects
+- **Hardware Acceleration**: GPU-optimized animations for smooth performance
+- **Responsive Design**: Adapts to all screen sizes and device orientations
+- **Accessibility Compliant**: Respects prefers-reduced-motion settings
+
+### WordPress Integration
+
+- **Gutenberg Blocks**: Native block editor support with live preview
+- **Shortcode System**: Easy integration in posts, pages, and widgets
+- **Theme Compatibility**: Works with any WordPress theme
+- **Performance Optimized**: Minimal impact on page load times
+
+## Usage
+
+### Gutenberg Block Editor
+Add the "Border Animation" block and choose from 11 particle effects:
+- Real-time preview in the editor
+- Customizable colors, speeds, and particle counts
+- Responsive controls for different screen sizes
+
+### Shortcodes
+
+**Basic particle effect:**
+```
+[border_animation type="planetary-orbit" color="#0073e6"]Your content[/border_animation]
 ```
 
-### Configuration Options
-- `data-typewriter-speed`: Milliseconds per character (default: 150)
-- `data-typewriter-pause-end`: Pause at end before deleting (default: 1000ms)
-- `data-typewriter-pause-start`: Pause before retyping (default: 500ms)
-- `data-typewriter-cursor`: Cursor character (default: "|")
-- `data-typewriter-show-cursor`: Show/hide cursor (default: true)
-- `data-typewriter-loop`: Enable infinite loop (default: true)
-
-### Manual JavaScript Control
-```javascript
-// Create instance manually
-const element = document.querySelector('.my-typewriter');
-const typewriter = new TypewriterBorderAnimation(element, {
-    speed: 100,
-    pauseEnd: 2000,
-    loop: true
-});
-
-// Control the animation
-typewriter.restart(); // Restart animation
-typewriter.destroy(); // Stop and cleanup
+**Advanced configuration:**
+```
+[border_animation type="ferris-wheel" color="#ff6b35" particle-count="6" speed="slow"]Your content[/border_animation]
 ```
 
-## 🚀 Enhanced Usage
+### CSS Classes
+Apply effects directly with CSS classes:
+- `.ba-planetary-orbit` - Realistic orbital mechanics
+- `.ba-comet-tail` - Streaking comet effects
+- `.ba-meteor-shower` - Multiple cascading particles
+- `.ba-burning-fuse` - Crackling fuse animation
+- `.ba-fireworks` - Explosive particle bursts
+- `.ba-lightning` - Electric energy effects
+- `.ba-highway-traffic` - Vehicle traffic simulation
+- `.ba-race-track` - High-speed racing effects
+- `.ba-train-journey` - Locomotive motion
+- `.ba-ferris-wheel` - Circular amusement ride (circular borders)
+- `.ba-merry-go-round` - Carousel animation (circular borders)
 
-### WordPress Shortcode (Recommended)
-```php
-// Basic usage
-[border_animation_demo type="highlighted"]Your content here[/border_animation_demo]
+## Installation
 
-// Advanced usage with custom styling
-[border_animation_demo 
-  type="3d" 
-  color="#002D5F" 
-  color_alt="#ac3033" 
-  color_accent="#ffd700"
-  width="3px" 
-  radius="1.5em"
-]Professional Content[/border_animation_demo]
-```
+1. **Upload & Activate:**
+   - Upload to your `wp-content/plugins` directory
+   - Activate in WordPress admin
 
-### Direct CSS Classes
-```html
-<div class="ba-animate ba-typewriter">Typewriter border effect</div>
-<div class="ba-animate ba-glowing-enhanced">Enhanced glowing border</div>
-```
+2. **Start Creating:**
+   - Add Border Animation blocks in the block editor
+   - Use shortcodes in content
+   - Apply CSS classes in your theme
 
-### Custom Properties for Theming
-```css
-.my-custom-border {
-  --ba-primary: #002D5F;
-  --ba-accent: #0073e6;
-  --ba-color-accent: #ffd700;
-  --ba-radius: 1.5rem;
-  --ba-width: 3px;
-}
-```
+## Technical Specifications
+
+- **CSS3 Animations**: Hardware-accelerated transforms and keyframes
+- **Modern Browser Support**: Chrome 70+, Firefox 70+, Safari 12+, Edge 79+
+- **Performance**: 60fps animations with GPU acceleration
+- **File Size**: Optimized CSS with minimal footprint
+- **Accessibility**: WCAG 2.1 compliant with motion preferences
+
+## Showcase & Demos
+
+- **Comprehensive Demo**: `demos/particle-effects.html` - All 11 effects with live examples
+- **Usage Examples**: `SHOWCASES.html` - Real-world implementation scenarios
+- **WordPress Examples**: Available in block editor preview
 
 ## Development
 
-- CSS: `css/border-animations.css`
-- PHP: `border-animations.php`
-- MIT License (CSS), GPLv2+ (PHP)
+### File Structure
+- `border-animations.php` - Main plugin file
+- `css/border-animations.css` - Core animation styles
+- `blocks/border-animation/index.js` - Gutenberg block implementation
+- `demos/particle-effects.html` - Comprehensive showcase
+
+### Building Blocks
+```bash
+npm install
+npm run build
+```
 
 ## License
 
-- PHP: GPLv2 or later
-- CSS: MIT
+- **PHP Code**: GPLv2 or later
+- **CSS/JavaScript**: MIT License
+- **Compatible**: WordPress 5.0+ and PHP 7.4+
 
 ---
 
-**Author:** Dave England
+**Author:** David E. England, Ph.D.  
+**Plugin URI:** https://davidengland.wordpress.com/border-animations  
+**Version:** 2.0.0
